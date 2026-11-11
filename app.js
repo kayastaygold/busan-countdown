@@ -195,13 +195,22 @@
 
   // ---------- 備選 ----------
   function altsView() {
-    return '<p class="muted">下雨、太累或時間多出來的時候用。</p>' + T.alternatives.map(function (a) {
-      var s = T.spots[a.spot];
-      return '<article class="card alt"><h3>' + esc(s.name) + "</h3>" +
-        '<div class="chips"><span>⏱ ' + esc(a.length) + "</span><span>👥 " + esc(a.people) + "</span>" +
-        "<span>" + (a.rain ? "☔ 下雨 OK" : "🌤 晴天較好") + "</span></div>" +
-        '<p><b>適合：</b>' + esc(a.best) + '</p><p class="muted">' + esc(s.intro) + "</p>" + spotLinks(a.spot, true) + "</article>";
-    }).join("");
+    var h = '<p class="muted">下雨、太累或時間多出來的時候用。</p>' + '<nav class="pills small">';
+    var groups = AREA_ORDER.filter(function (aid) {
+      return T.alternatives.some(function (a) { return T.spots[a.spot].area === aid; });
+    });
+    h += groups.map(function (aid) { return '<a href="#alts" data-jump="alt-' + aid + '">' + esc(areaName(aid)) + "</a>"; }).join("") + "</nav>";
+    groups.forEach(function (aid) {
+      h += '<h2 class="areah" id="alt-' + aid + '">' + esc(areaName(aid)) + "</h2>";
+      T.alternatives.filter(function (a) { return T.spots[a.spot].area === aid; }).forEach(function (a) {
+        var s = T.spots[a.spot];
+        h += '<article class="card alt"><h3>' + esc(s.name) + "</h3>" +
+          '<div class="chips"><span>⏱ ' + esc(a.length) + "</span><span>👥 " + esc(a.people) + "</span>" +
+          "<span>" + (a.rain ? "☔ 下雨 OK" : "🌤 晴天較好") + "</span></div>" +
+          '<p><b>適合：</b>' + esc(a.best) + '</p><p class="muted">' + esc(s.intro) + "</p>" + spotLinks(a.spot, true) + "</article>";
+      });
+    });
+    return h;
   }
 
   // ---------- 待辦 ----------
@@ -266,6 +275,11 @@
     if (!(tab === "spots" && parts[1])) window.scrollTo(0, 0);
   }
   window.addEventListener("hashchange", route);
+  app.addEventListener("click", function (e) {
+    var j = e.target.closest("[data-jump]"); if (!j) return;
+    e.preventDefault();
+    var el = document.getElementById(j.dataset.jump); if (el) el.scrollIntoView({ block: "start" });
+  });
   document.getElementById("foot").textContent = "最後更新 " + T.updated + "・時間皆為韓國時間";
   route();
 })();

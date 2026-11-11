@@ -25,11 +25,6 @@ main { max-width: 720px; margin: 0 auto; padding: 14px 16px 40px; }
 .card { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 14px; margin-bottom: 14px; }
 .more { display: inline-block; margin-top: 6px; font-size: 14px; }
 
-.hero { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
-.count { background: var(--accent); color: #fff; border-radius: var(--radius); padding: 16px; text-align: center; }
-.count + .count { background: var(--surface); color: var(--text); box-shadow: var(--shadow); }
-.count b { display: block; font-size: 38px; line-height: 1.1; }
-.count span { font-size: 13px; opacity: .85; }
 
 .dots { display: inline-flex; flex-wrap: wrap; gap: 4px; vertical-align: middle; }
 .dot { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--c); color: #fff; font-size: 12px; font-weight: 700; }
@@ -130,3 +125,6 @@ details p { font-size: 14px; }
 .box { width: 20px; height: 20px; border: 2px solid var(--text-2); border-radius: 5px; display: grid; place-items: center; font-size: 13px; margin-top: 2px; }
 .todo.done .box { background: var(--ok); border-color: var(--ok); color: #fff; }
 .todo.done b { text-decoration: line-through; color: var(--text-2); }
+.prep ul { padding-left: 20px; margin: 10px 0 0; font-size: 14px; }
+.prep li { margin: 3px 0; }
+.prep .tbl td:first-child { width: 84px; white-space: nowrap; }

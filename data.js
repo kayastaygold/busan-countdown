@@ -5,9 +5,7 @@
 // ============================================================
 window.TRIP = {
   title: "釜山跨年 2026→2027",
-  updated: "2026-11-10",
-  start: "2026-12-29T18:50:00+09:00",
-  nye: "2027-01-01T00:00:00+09:00",
+  updated: "2026-11-11",
 
   people: [
     { id: "lin",  name: "林", arrive: "2026-12-29T18:50", depart: "2027-01-05T19:50" },
@@ -242,6 +240,63 @@ window.TRIP = {
     { title: "跨年看秀餐廳／酒吧訂位", deadline: "", note: "等 12 月中公告後再看", done: false },
     { title: "確認 Spa Land、Arte Museum 元旦營業時間", deadline: "", note: "", done: false },
     { title: "慶州包車（如果要去）", deadline: "", note: "旺季建議 11 月訂", done: false }
+  ],
+
+  // 行前注意事項
+  prep: [
+    {
+      icon: "🌡", title: "天氣",
+      lead: "釜山年底比台北冷很多，而且海邊風大。跨年夜要在廣安里海邊站好幾個小時，保暖最重要。",
+      rows: [
+        ["氣溫", "12 月平均 3～9°C，1 月平均 1～7°C，晚上可能接近 0°C"],
+        ["風", "1 月是一年風最大的月份，海邊體感會更冷"],
+        ["下雨", "12 月是最乾的月份，下雨機率低"],
+        ["日落", "約 17:20，下午 5 點多天就黑了"]
+      ],
+      items: [
+        "建議帶：羽絨外套、圍巾、手套、毛帽、發熱衣，跨年夜加暖暖包",
+        "天氣預報大概出發前 10 天才準，到時候再看下面的連結"
+      ],
+      links: [
+        { label: "Naver 釜山天氣", url: "https://search.naver.com/search.naver?query=%EB%B6%80%EC%82%B0+%EB%82%A0%EC%94%A8" },
+        { label: "韓國氣象廳", url: "https://www.weather.go.kr/w/index.do" }
+      ],
+      source: [{ label: "Weather Spark 釜山全年天氣", url: "https://weatherspark.com/y/142699/Average-Weather-in-Busan-South-Korea-Year-Round" }]
+    },
+    {
+      icon: "💱", title: "換錢",
+      lead: "機場先換一點點（約 NT$1,000）夠搭車就好，其他到市區換，西面和南浦洞匯率通常比較好，但海雲台也差不多，不用特地跑。",
+      rows: [
+        ["金海機場", "Money Box（輕軌機場站 1 樓剪票口旁）06:00–21:00，比機場銀行好。林、高 18:50 落地來得及"],
+        ["海雲台", "Money Box（海雲台海灘前，Sea Cloud Hotel 1 樓）09:00–19:00，離住處最近"],
+        ["西面", "娜英換錢所（老字號，匯率不錯）09:00–19:00；Money Box 西面站 7 號出口附近"],
+        ["南浦洞", "光復路上有好幾家：Money Box、MONEYPLANET（有 24 小時換錢機）、釜山換錢所、友利換錢"]
+      ],
+      items: [
+        "一定要帶護照正本，照片和影本不行",
+        "帶台幣 1,000 元大鈔匯率最好，小鈔匯率比較差",
+        "地鐵卡加值只能用現金",
+        "換完當場在櫃台鏡頭前點清楚",
+        "營業時間是 2026 年的資料，出發前再確認"
+      ],
+      source: [{ label: "Creatrip 釜山換錢整理（2026/5 查證）", url: "https://creatrip.com/blog/9469" }]
+    },
+    {
+      icon: "🚕", title: "叫車 App（出國前裝好）",
+      lead: "在台灣就先裝好、註冊、綁好信用卡。註冊的驗證簡訊會傳到台灣門號，到韓國換網卡後可能收不到。",
+      rows: [
+        ["Uber", "用原本的帳號和信用卡就能叫，叫到的是一般計程車，最簡單"],
+        ["K.Ride", "Kakao 給外國人用的版本，可以用台灣門號和海外信用卡，有中文；車種比較貴，另有服務費"],
+        ["Kakao T", "韓國人最常用的，但外國門號和信用卡常常註冊或付款失敗，不建議當主力"]
+      ],
+      items: [
+        "建議 Uber 和 K.Ride 都裝，一個叫不到換另一個",
+        "6 個人要叫 2 台車，或叫大型計程車",
+        "跨年夜廣安里附近很難叫車，建議走到民樂站搭地鐵",
+        "順便裝：Naver Map（韓國導航比 Google 準）、Papago（翻譯）"
+      ],
+      source: [{ label: "韓國叫車 App 比較（2026）", url: "https://thebitjoy.com/blogs/blog/korea-taxi-apps-for-foreigners" }]
+    }
   ],
 
   beauty: {

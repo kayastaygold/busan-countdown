@@ -56,26 +56,14 @@
 
   // ---------- 總覽 ----------
   function overview() {
-    var dStart = daysUntil(T.start), dNye = daysUntil(T.nye);
-    var h = '<section class="hero">' +
-      '<div class="count"><b>' + (dStart > 0 ? dStart : "出發了") + "</b><span>" + (dStart > 0 ? "天後出發" : "") + "</span></div>" +
-      '<div class="count"><b>' + (dNye > 0 ? dNye : "🎉") + "</b><span>" + (dNye > 0 ? "天後跨年" : "新年快樂") + "</span></div>" +
-      "</section>";
+    var h = '<section class="card"><h2>誰哪天在</h2>' + presence() +
+      '<p class="muted small">橫條上的時間是班機抵達和起飛時間（韓國時間，比台灣快 1 小時）。</p></section>';
 
     var next = nextTodos(2);
     if (next.length) {
       h += '<section class="card"><h2>下一件要做的事</h2>' + next.map(todoRow).join("") +
         '<a class="more" href="#todo">看全部待辦 →</a></section>';
     }
-
-    h += '<section class="card"><h2>誰哪天在</h2>' + presence() + "</section>";
-
-    h += '<section class="card"><h2>航班時間</h2><table class="tbl"><tr><th></th><th>抵達</th><th>起飛</th></tr>' +
-      T.people.map(function (p) {
-        if (p.tentative) return "<tr><td>" + dots([p.id]) + '</td><td colspan="2" class="muted">' + esc(p.note) + "</td></tr>";
-        return "<tr><td>" + dots([p.id]) + "</td><td>" + md(p.arrive.slice(0, 10)) + " " + hm(p.arrive) +
-          "</td><td>" + md(p.depart.slice(0, 10)) + " " + hm(p.depart) + "</td></tr>";
-      }).join("") + '</table><p class="muted small">都是韓國時間（比台灣快 1 小時）。</p></section>';
 
     h += '<section class="card"><h2>住哪一區</h2><ul class="stays">' + T.stays.map(function (s) {
       var last = s.nights[s.nights.length - 1];
@@ -241,6 +229,24 @@
       '<p class="muted small center">打勾狀態由 Kaya 這邊更新。</p>';
   }
 
+  // ---------- 行前注意事項 ----------
+  function prepView() {
+    return T.prep.map(function (sec) {
+      return '<section class="card prep"><h2>' + esc(sec.icon) + " " + esc(sec.title) + "</h2>" +
+        (sec.lead ? "<p>" + esc(sec.lead) + "</p>" : "") +
+        (sec.rows ? '<table class="tbl">' + sec.rows.map(function (r) {
+          return "<tr><td><b>" + esc(r[0]) + "</b></td><td>" + esc(r[1]) + "</td></tr>";
+        }).join("") + "</table>" : "") +
+        (sec.items ? "<ul>" + sec.items.map(function (i) { return "<li>" + esc(i) + "</li>"; }).join("") + "</ul>" : "") +
+        (sec.links ? '<div class="links">' + sec.links.map(function (l) {
+          return '<a class="btn" href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.label) + "</a>";
+        }).join("") + "</div>" : "") +
+        (sec.source ? '<p class="muted small">資料來源：' + sec.source.map(function (l) {
+          return '<a href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.label) + "</a>";
+        }).join("、") + "</p>" : "") + "</section>";
+    }).join("");
+  }
+
   // ---------- 醫美 ----------
   function beautyView() {
     var b = T.beauty;
@@ -250,7 +256,7 @@
   }
 
   // ---------- 路由 ----------
-  var views = { overview: overview, days: daysView, map: mapView, spots: spotsView, alts: altsView, todo: todoView, beauty: beautyView };
+  var views = { overview: overview, days: daysView, map: mapView, spots: spotsView, alts: altsView, todo: todoView, prep: prepView, beauty: beautyView };
   function route() {
     var parts = (location.hash.slice(1) || "overview").split("/");
     var tab = views[parts[0]] ? parts[0] : "overview";

@@ -128,3 +128,19 @@ details p { font-size: 14px; }
 .prep ul { padding-left: 20px; margin: 10px 0 0; font-size: 14px; }
 .prep li { margin: 3px 0; }
 .prep .tbl td:first-child { width: 84px; white-space: nowrap; }
+
+/* 愛心 */
+.brand { display: flex; align-items: baseline; gap: 6px; }
+#whoami { margin-left: auto; font-size: 13px; font-weight: 500; background: var(--surface-2); color: var(--text); padding: 3px 10px; border-radius: 999px; }
+.like { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+.like-btn { font: inherit; font-size: 14px; border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 4px 12px; cursor: pointer; }
+.like-btn.on { border-color: #e0457b; background: #fde8ef; }
+.like-who { display: inline-flex; gap: 3px; flex-wrap: wrap; }
+.like-who .dot { width: 20px; height: 20px; font-size: 11px; }
+.rank { margin: 0; padding-left: 22px; }
+.rank li { padding: 4px 0; }
+.picker { position: fixed; inset: 0; background: rgba(0,0,0,.4); display: grid; place-items: center; z-index: 50; padding: 16px; }
+.picker-card { background: var(--surface); border-radius: var(--radius); padding: 18px; width: 100%; max-width: 340px; text-align: center; }
+.picker-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 0; }
+.picker-row button { font: inherit; font-size: 18px; font-weight: 700; color: #fff; background: var(--c); border: 0; border-radius: var(--radius-sm); padding: 12px 0; cursor: pointer; }
+.picker-x { font: inherit; background: none; border: 0; color: var(--text-2); cursor: pointer; }

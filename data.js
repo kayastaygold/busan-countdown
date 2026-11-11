@@ -7,6 +7,9 @@ window.TRIP = {
   title: "釜山跨年 2026→2027",
   updated: "2026-11-11",
 
+  // 愛心按鈕用的 Firebase 設定（空白 = 不顯示愛心）
+  firebase: { projectId: "", apiKey: "" },
+
   people: [
     { id: "lin",  name: "林", arrive: "2026-12-29T18:50", depart: "2027-01-05T19:50" },
     { id: "gao",  name: "高", arrive: "2026-12-29T18:50", depart: "2027-01-05T19:50" },

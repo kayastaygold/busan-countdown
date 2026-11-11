@@ -59,6 +59,8 @@
     var h = '<section class="card"><h2>誰哪天在</h2>' + presence() +
       '<p class="muted small">橫條上的時間是班機抵達和起飛時間（韓國時間，比台灣快 1 小時）。</p></section>';
 
+    if (window.LIKES && LIKES.enabled) h += '<section class="card"><h2>大家最想去</h2><div id="rank"></div><a class="more" href="#spots">去景點頁按愛心 →</a></section>';
+
     var next = nextTodos(2);
     if (next.length) {
       h += '<section class="card"><h2>下一件要做的事</h2>' + next.map(todoRow).join("") +
@@ -121,7 +123,7 @@
         (it.optional ? ' <span class="tag">可跳過</span>' : "") + (it.tbd ? ' <span class="tag warn">未定</span>' : "") + "</div>";
       if (it.who) body += dots(it.who);
       if (it.note) body += '<p class="note">' + esc(it.note) + "</p>";
-      if (s) body += '<details><summary>' + esc(s.name) + "</summary><p>" + esc(s.intro) + "</p>" + igCards(s) + spotLinks(it.spot, true) + "</details>";
+      if (s) body += '<details><summary>' + esc(s.name) + "</summary><p>" + esc(s.intro) + "</p>" + igCards(s) + (window.LIKES ? LIKES.button(it.spot) : "") + spotLinks(it.spot, true) + "</details>";
       return '<li class="' + cls.join(" ") + '"><span class="tl-time">' + esc(it.time) + '</span><div class="tl-body">' + body + "</div></li>";
     }).join("") + "</ol>";
     if (d.notes) h += '<div class="card warnbox">' + d.notes.map(function (n) { return "⚠️ " + esc(n); }).join("<br>") + "</div>";
@@ -182,7 +184,7 @@
         var s = T.spots[k]; if (s.area !== aid) return;
         var used = usedOn(k);
         h += '<article class="card spot" id="spot-' + k + '"><h3>' + esc(s.name) + ' <small>' + esc(s.ko) + "</small></h3>" +
-          "<p>" + esc(s.intro) + "</p>" + igCards(s) +
+          "<p>" + esc(s.intro) + "</p>" + igCards(s) + (window.LIKES ? LIKES.button(k) : "") +
           (used.length ? '<p class="muted small">排在：' + used.join("、") + "</p>" : "") + spotLinks(k, false) + "</article>";
       });
     });
@@ -207,7 +209,7 @@
         h += '<article class="card alt"><h3>' + esc(s.name) + "</h3>" +
           '<div class="chips"><span>⏱ ' + esc(a.length) + "</span><span>👥 " + esc(a.people) + "</span>" +
           "<span>" + (a.rain ? "☔ 下雨 OK" : "🌤 晴天較好") + "</span></div>" +
-          '<p><b>適合：</b>' + esc(a.best) + '</p><p class="muted">' + esc(s.intro) + "</p>" + spotLinks(a.spot, true) + "</article>";
+          '<p><b>適合：</b>' + esc(a.best) + '</p><p class="muted">' + esc(s.intro) + "</p>" + (window.LIKES ? LIKES.button(a.spot) : "") + spotLinks(a.spot, true) + "</article>";
       });
     });
     return h;
@@ -273,7 +275,17 @@
     document.querySelectorAll("#tabs a").forEach(function (a) { a.classList.toggle("on", a.dataset.tab === tab); });
     var on = document.querySelector("#tabs .on"); if (on) on.scrollIntoView({ inline: "center", block: "nearest" });
     if (!(tab === "spots" && parts[1])) window.scrollTo(0, 0);
+    if (window.LIKES) { LIKES.paint(app); paintRank(); }
   }
+  function paintRank() {
+    var el = document.getElementById("rank"); if (!el) return;
+    if (!LIKES.isLoaded()) { el.innerHTML = '<p class="muted small">載入中…</p>'; return; }
+    var r = LIKES.ranking().slice(0, 8);
+    el.innerHTML = r.length ? '<ol class="rank">' + r.map(function (x) {
+      return '<li><a href="#spots/' + x.spot + '">' + esc(T.spots[x.spot].name) + "</a> " + dots(x.who) + "</li>";
+    }).join("") + "</ol>" : '<p class="muted small">還沒有人按愛心。</p>';
+  }
+  if (window.LIKES) LIKES.onChange(paintRank);
   window.addEventListener("hashchange", route);
   app.addEventListener("click", function (e) {
     var j = e.target.closest("[data-jump]"); if (!j) return;

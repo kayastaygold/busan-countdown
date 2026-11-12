@@ -5,7 +5,7 @@
 // ============================================================
 window.TRIP = {
   title: "釜山跨年 2026→2027",
-  updated: "2026-11-11",
+  updated: "2026-11-12",
 
   // 愛心按鈕用的 Firebase 設定（空白 = 不顯示愛心）
   firebase: { projectId: "busan-countdown", apiKey: "AIzaSyBLx2xd9LAudbNWqBOyjXE1-ZHiXt4-MOw" },
@@ -127,7 +127,7 @@ window.TRIP = {
     { id: "nampo",    name: "南浦／影島", mapName: "南浦",       x: 150, y: 250 },
     { id: "gwangan",  name: "廣安里",     x: 255, y: 205 },
     { id: "haeundae", name: "海雲台",     x: 330, y: 170 },
-    { id: "gijang",   name: "機張",       x: 345, y: 62 },
+    { id: "gijang",   name: "機張",       x: 345, y: 88 },
     { id: "gyeongju", name: "慶州",       x: 400, y: 0, offmap: true }
   ],
 
@@ -245,10 +245,10 @@ window.TRIP = {
     { title: "慶州包車（如果要去）", deadline: "", note: "旺季建議 11 月訂", done: false }
   ],
 
-  // 行前注意事項
+  // 行前注意事項（icon 是 icons.js 裡的圖示名稱）
   prep: [
     {
-      icon: "🌡", title: "天氣",
+      icon: "thermo", title: "天氣",
       lead: "釜山年底比台北冷很多，而且海邊風大。跨年夜要在廣安里海邊站好幾個小時，保暖最重要。",
       rows: [
         ["氣溫", "12 月平均 3～9°C，1 月平均 1～7°C，晚上可能接近 0°C"],
@@ -267,7 +267,7 @@ window.TRIP = {
       source: [{ label: "Weather Spark 釜山全年天氣", url: "https://weatherspark.com/y/142699/Average-Weather-in-Busan-South-Korea-Year-Round" }]
     },
     {
-      icon: "💱", title: "換錢",
+      icon: "won", title: "換錢",
       lead: "機場先換一點點（約 NT$1,000）夠搭車就好，其他到市區換，西面和南浦洞匯率通常比較好，但海雲台也差不多，不用特地跑。",
       rows: [
         ["金海機場", "Money Box（輕軌機場站 1 樓剪票口旁）06:00–21:00，比機場銀行好。林、高 18:50 落地來得及"],
@@ -285,7 +285,7 @@ window.TRIP = {
       source: [{ label: "Creatrip 釜山換錢整理（2026/5 查證）", url: "https://creatrip.com/blog/9469" }]
     },
     {
-      icon: "🚕", title: "叫車 App（出國前裝好）",
+      icon: "taxi", title: "叫車 App（出國前裝好）",
       lead: "在台灣就先裝好、註冊、綁好信用卡。註冊的驗證簡訊會傳到台灣門號，到韓國換網卡後可能收不到。",
       rows: [
         ["Uber", "用原本的帳號和信用卡就能叫，叫到的是一般計程車，最簡單"],

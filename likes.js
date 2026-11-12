@@ -35,7 +35,10 @@
     var on = list.indexOf(who) >= 0;
     var docUrl = base + "/" + spot + "__" + who + "?key=" + cfg.apiKey;
     if (on) list.splice(list.indexOf(who), 1); else list.push(who);
+    popSpot = on ? null : spot;
+    try { if (navigator.vibrate) navigator.vibrate(on ? 8 : [12, 40, 18]); } catch (e) {}   // 手機震一下（iPhone 不支援）
     notify();
+    popSpot = null;
     fetch(docUrl, on ? { method: "DELETE" } : {
       method: "PATCH", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ fields: { spot: { stringValue: spot }, who: { stringValue: who }, at: { timestampValue: new Date().toISOString() } } })
@@ -64,11 +67,15 @@
     if (!enabled) return "";
     return '<span class="like" data-like="' + spot + '"></span>';
   }
+  var popSpot = null;   // 剛按下愛心的景點：播一次彈跳＋彩色碎片
+  var BURST = ["var(--hot)", "var(--yellow)", "var(--blue)", "var(--purple)", "var(--teal)", "var(--pink)"];
   function paint(root) {
     (root || document).querySelectorAll("[data-like]").forEach(function (el) {
-      var spot = el.dataset.like, list = likes[spot] || [], mine = list.indexOf(me()) >= 0;
-      el.innerHTML = '<button class="like-btn' + (mine ? " on" : "") + '" aria-pressed="' + mine + '">' +
-        (mine ? "❤️" : "🤍") + " " + (loaded ? list.length : "") + "</button>" +
+      var spot = el.dataset.like, list = likes[spot] || [], mine = list.indexOf(me()) >= 0, pop = mine && popSpot === spot;
+      el.innerHTML = '<button class="like-btn' + (mine ? " on" : "") + (pop ? " pop" : "") + '" aria-pressed="' + mine + '" aria-label="想去">' +
+        window.ICON("heart") + "<span>" + (loaded ? list.length : "") + "</span>" +
+        (pop ? '<span class="burst">' + BURST.map(function (c, i) { return '<i style="--a:' + (i * 60 + 15) + "deg;--c:" + c + '"></i>'; }).join("") + "</span>" : "") +
+        "</button>" +
         '<span class="like-who">' + list.map(function (id) {
           return '<span class="dot" style="--c:var(--p-' + id + ')">' + name(id) + "</span>";
         }).join("") + "</span>";

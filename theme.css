@@ -1,32 +1,59 @@
 /* ============================================================
-   風格層：要換風格只改這個檔案（顏色、字體、圓角）
+   風格層：Memphis 風（粉、紫、黃、藍，黑框＋硬陰影）
+   要換顏色、字體只改這個檔案
    ============================================================ */
+@font-face {
+  font-family: "Anton";
+  src: url("fonts/anton.woff2") format("woff2");
+  font-display: swap;
+}
+
 :root {
   --font: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+  --font-display: "Anton", "Arial Narrow", var(--font);   /* 英文、數字用的高瘦粗體 */
 
-  --bg: #f6f7f9;
+  /* 基本色 */
+  --ink: #16130f;        /* 黑框、文字 */
+  --paper: #fff9ee;      /* 米白底 */
   --surface: #ffffff;
-  --surface-2: #eef1f5;
-  --text: #1d2330;
-  --text-2: #5d6676;
-  --line: #dde2ea;
-  --accent: #2364d2;
-  --accent-soft: #e3ecfb;
-  --warn: #c2410c;
-  --warn-soft: #fdeee4;
-  --ok: #15803d;
-  --sea: #d7e8f7;
-  --land: #ffffff;
+  --grid: rgba(22, 19, 15, .07);
+  --text-2: #5b554c;
+  --link: #2b4fd8;
+
+  /* Memphis 主色 */
+  --pink: #ff8fc7;
+  --hot: #ff4fa3;
+  --purple: #9b6bff;
+  --lilac: #dccfff;
+  --yellow: #ffd534;
+  --blue: #5b8dff;
+  --sky: #a9d8ff;
+  --teal: #2ed3c6;
+  --coral: #ff7a59;
 
   /* 每個人的顏色 */
-  --p-lin: #e4572e;
-  --p-gao: #f2a541;
-  --p-hong: #3aa17e;
-  --p-luo: #2d7dd2;
-  --p-wu: #8e5bd8;
-  --p-s: #d6457d;
+  --p-lin: var(--hot);
+  --p-gao: var(--yellow);
+  --p-hong: var(--teal);
+  --p-luo: var(--blue);
+  --p-wu: var(--purple);
+  --p-s: var(--coral);
 
-  --radius: 14px;
-  --radius-sm: 8px;
-  --shadow: 0 1px 2px rgba(20, 30, 50, .06), 0 2px 8px rgba(20, 30, 50, .05);
+  /* 各區的顏色 */
+  --a-haeundae: var(--blue);
+  --a-gwangan: var(--purple);
+  --a-gijang: var(--yellow);
+  --a-nampo: var(--pink);
+  --a-seomyeon: var(--teal);
+  --a-gyeongju: var(--coral);
+  --a-airport: var(--surface);
+
+  --sea: var(--sky);
+  --land: var(--paper);
+
+  --bw: 2.5px;                                   /* 框線粗細 */
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow: 4px 4px 0 var(--ink);                /* 硬陰影 */
+  --shadow-sm: 2.5px 2.5px 0 var(--ink);
 }

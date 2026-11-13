@@ -133,7 +133,8 @@
         (p.tentative ? "<span>未定</span>" : "<span>" + hm(p.arrive) + "</span><span>" + hm(p.depart) + "</span>") + "</div></div></div>";
     });
     h += "</div></div>";
-    return h + '<p class="legend"><span class="sw ov"></span>' + esc(ol.label) + '　<span class="sw tent"></span>班機未定</p>';
+    return h + '<p class="legend"><span class="sw ov"></span>' + esc(ol.label) +
+      (T.people.some(function (p) { return p.tentative; }) ? '　<span class="sw tent"></span>班機未定' : "") + "</p>";
   }
 
   // ---------- 每日行程 ----------

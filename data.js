@@ -5,7 +5,7 @@
 // ============================================================
 window.TRIP = {
   title: "釜山跨年 2026→2027",
-  updated: "2026-11-12",
+  updated: "2026-11-14",
 
   // 愛心按鈕用的 Firebase 設定（空白 = 不顯示愛心）
   firebase: { projectId: "busan-countdown", apiKey: "AIzaSyBLx2xd9LAudbNWqBOyjXE1-ZHiXt4-MOw" },
@@ -15,8 +15,8 @@ window.TRIP = {
     { id: "gao",  name: "高", arrive: "2026-12-29T18:50", depart: "2027-01-05T19:50" },
     { id: "hong", name: "洪", arrive: "2026-12-30T06:10", depart: "2027-01-03T20:50" },
     { id: "luo",  name: "羅", arrive: "2026-12-30T20:45", depart: "2027-01-02T14:50" },
-    { id: "wu",   name: "吳", arrive: "2026-12-30T12:00", depart: "2027-01-03T12:00", tentative: true, note: "約 12/30–1/3，班機未定" },
-    { id: "s",    name: "S",  arrive: "2026-12-30T12:00", depart: "2027-01-03T12:00", tentative: true, note: "約 12/30–1/3，班機未定" }
+    { id: "wu",   name: "吳", arrive: "2026-12-30T10:50", depart: "2027-01-03T10:00" },
+    { id: "s",    name: "S",  arrive: "2026-12-30T10:50", depart: "2027-01-03T10:00" }
   ],
 
   // 全員都在的時段（畫在人員時間條上）
@@ -43,15 +43,15 @@ window.TRIP = {
     },
     {
       date: "2026-12-30", energy: "🟢", who: ["lin", "gao", "hong", "luo", "wu", "s"],
-      summary: "洪一早到，晚上其他人陸續到，搬到海雲台",
+      summary: "洪一早到，吳、S 中午到，羅晚上到，搬到海雲台",
       items: [
         { time: "06:10", title: "洪抵達，搭輕軌和地鐵到廣安里（約 1 小時）", who: ["hong"], flight: true },
         { time: "08:00", title: "洪先把行李放在林、高的廣安里住處", who: ["lin", "gao", "hong"], note: "要不要讓洪在房間補眠，先跟房東確認" },
         { time: "上午", title: "三人在廣安里吃早午餐、簡單逛逛", spot: "gwangan", who: ["lin", "gao", "hong"] },
-        { time: "中午", title: "移動到海雲台 check-in", who: ["lin", "gao", "hong"], note: "不能提早 check-in 就先寄放行李，洪可以去 Spa Land 補眠" },
+        { time: "10:50", title: "吳、S 抵達，搭計程車到海雲台（約 12 點到）", who: ["wu", "s"], flight: true },
+        { time: "中午", title: "移動到海雲台 check-in，跟吳、S 會合", who: ["lin", "gao", "hong", "wu", "s"], note: "不能提早 check-in 就先寄放行李，洪可以去 Spa Land 補眠" },
         { time: "", title: "剪頭髮（待定）", who: ["lin", "gao"], tbd: true },
-        { time: "下午", title: "逛海雲台市場和小店", spot: "haeundae-market", who: ["lin", "gao", "hong"] },
-        { time: "下午", title: "吳、S 抵達（班機未定）", who: ["wu", "s"], flight: true, tbd: true },
+        { time: "下午", title: "逛海雲台市場和小店", spot: "haeundae-market", who: ["lin", "gao", "hong", "wu", "s"] },
         { time: "晚上", title: "海雲台光之祭", spot: "haeundae-beach", who: ["lin", "gao", "hong", "wu", "s"] },
         { time: "20:45", title: "羅抵達，約 22:00 到住處", who: ["luo"], flight: true }
       ]
@@ -92,11 +92,12 @@ window.TRIP = {
     },
     {
       date: "2027-01-03", energy: "🟡", who: ["lin", "gao", "hong", "wu", "s"],
-      summary: "南浦一帶；洪、吳、S 回國，林、高搬到西面",
+      summary: "吳、S 一早回程；林、高、洪去南浦一帶，洪晚上回國，林、高搬到西面",
       items: [
-        { time: "上午", title: "甘川洞文化村", spot: "gamcheon" },
-        { time: "中午", title: "札嘎其市場、國際市場（週日部分店家休息）", spot: "jagalchi" },
-        { time: "下午", title: "洪、吳、S 出發去機場", who: ["hong", "wu", "s"], flight: true, note: "洪 20:50 起飛；吳、S 班機未定" },
+        { time: "07:00", title: "吳、S 出發去機場（10:00 起飛）", who: ["wu", "s"], flight: true, note: "搭計程車約 40–60 分，前一晚先約好車" },
+        { time: "上午", title: "甘川洞文化村", spot: "gamcheon", who: ["lin", "gao", "hong"] },
+        { time: "中午", title: "札嘎其市場、國際市場（週日部分店家休息）", spot: "jagalchi", who: ["lin", "gao", "hong"] },
+        { time: "下午", title: "洪出發去機場（20:50 起飛）", who: ["hong"], flight: true },
         { time: "傍晚", title: "林、高搬到西面", who: ["lin", "gao"] }
       ]
     },
@@ -237,7 +238,7 @@ window.TRIP = {
     { title: "夜間煙火遊艇（6 人，20:30 以後）", deadline: "", note: "先確認元旦有沒有開船", done: false },
     { title: "Busan Pass", deadline: "", note: "Klook 手機版", done: false },
     { title: "西面住宿 1/3–1/4（林、高）", deadline: "", note: "不急", done: false },
-    { title: "吳、S 的班機", deadline: "", note: "訂好跟 Kaya 說時間", done: false },
+    { title: "吳、S 的班機", deadline: "", note: "", result: "12/30 10:50 抵達、1/3 10:00 起飛", done: true },
     { title: "傳訊息給海雲台房東確認入住時間", deadline: "2026-12-20", note: "房東要求 12 月出發前確認", done: false },
     { title: "查今年廣安里跨年公告", deadline: "2026-12-15", note: "往年約 12/15 公布", done: false },
     { title: "跨年看秀餐廳／酒吧訂位", deadline: "", note: "等 12 月中公告後再看", done: false },

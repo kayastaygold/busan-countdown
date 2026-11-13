@@ -160,7 +160,7 @@
     }).join("") + "</nav>";
 
     h += '<section class="dayhead" style="--tone:var(--' + DAY_TONES[idx % DAY_TONES.length] + ')"><div class="dh-top"><h2>' + md(d.date) +
-      " <small>週" + wd(d.date) + "</small></h2>" + energyTag(d.energy) + "</div>" +
+      " <small>週" + wd(d.date) + "</small>" + (d.tentative ? '<small class="tbd">暫定</small>' : "") + "</h2>" + energyTag(d.energy) + "</div>" +
       "<p>" + esc(d.summary) + "</p>" + dots(d.who, true);
     var st = staysFor(d.date);
     h += '<div class="stay">' + (st.length ? I("home") + "今晚住：" + st.map(function (s) {

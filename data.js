@@ -46,12 +46,13 @@ window.TRIP = {
       summary: "洪一早到，吳、S 中午到，羅晚上到，搬到海雲台",
       items: [
         { time: "06:10", title: "洪抵達，搭輕軌和地鐵到廣安里（約 1 小時）", who: ["hong"], flight: true },
-        { time: "08:00", title: "洪先把行李放在林、高的廣安里住處", who: ["lin", "gao", "hong"], note: "要不要讓洪在房間補眠，先跟房東確認" },
-        { time: "上午", title: "三人在廣安里吃早午餐、簡單逛逛", spot: "gwangan", who: ["lin", "gao", "hong"] },
+        { time: "早上", title: "洪二選一：很累就直接去 Spa Land 休息，或先到廣安里一起吃早餐", spot: "spaland", who: ["hong"], note: "林、高的住處沒辦法讓洪補眠。Spa Land 約 9:00 開門，在 Centum City，離海雲台 2 站" },
+        { time: "上午", title: "林、高（和洪）在廣安里吃早午餐、簡單逛逛，再一起去海雲台", spot: "gwangan", who: ["lin", "gao", "hong"] },
         { time: "10:50", title: "吳、S 抵達，搭計程車到海雲台（約 12 點到）", who: ["wu", "s"], flight: true },
-        { time: "中午", title: "移動到海雲台 check-in，跟吳、S 會合", who: ["lin", "gao", "hong", "wu", "s"], note: "不能提早 check-in 就先寄放行李，洪可以去 Spa Land 補眠" },
-        { time: "", title: "剪頭髮（待定）", who: ["lin", "gao"], tbd: true },
+        { time: "中午", title: "移動到海雲台 check-in，跟吳、S 會合", who: ["lin", "gao", "hong", "wu", "s"], note: "不能提早 check-in 就先寄放行李" },
+        { time: "", title: "剪頭髮（待定）", who: ["lin"], tbd: true },
         { time: "下午", title: "逛海雲台市場和小店", spot: "haeundae-market", who: ["lin", "gao", "hong", "wu", "s"] },
+        { time: "", title: "Lotte Premium Outlet 東釜山店（想去再去）", spot: "lotte-outlet", optional: true, note: "從海雲台搭計程車約 25–30 分" },
         { time: "晚上", title: "海雲台光之祭", spot: "haeundae-beach", who: ["lin", "gao", "hong", "wu", "s"] },
         { time: "20:45", title: "羅抵達，約 22:00 到住處", who: ["luo"], flight: true }
       ]
@@ -60,33 +61,35 @@ window.TRIP = {
       date: "2026-12-31", energy: "🟡", who: "all",
       summary: "跨年夜：龍宮寺、天空膠囊，晚上廣安里無人機秀",
       items: [
+        { time: "早上", title: "醫美（想做的人）", spot: "beauty", optional: true, note: "想做「立即漂亮型」的人，還有羅如果要做，排這天早上，因為 1/1 假日很多診所沒開。做的人可能趕不上龍宮寺，可以直接到松亭會合" },
         { time: "上午", title: "海東龍宮寺", spot: "yonggungsa" },
-        { time: "", title: "順路 Lotte Premium Outlet 東釜山店（時間不夠就跳過）", spot: "lotte-outlet", optional: true },
         { time: "中午", title: "從松亭搭天空膠囊和海岸列車回海雲台", spot: "blueline", ticket: true },
         { time: "16:00", title: "回住處休息" },
+        { time: "晚上", title: "跨年夜餐廳／酒吧（待定）", tbd: true, note: "還不確定有沒有店可以訂位，等 12 月中公告後再看" },
         { time: "20:00", title: "廣安里跨年活動（去年時間）", spot: "countdown", note: "22:40 演唱會、23:56 無人機起飛、24:00 倒數、約 00:10 結束。21:00 起 Wi-Fi 暫停，先下載離線地圖" },
         { time: "00:10", title: "搭地鐵或計程車回海雲台", note: "建議走到民樂站搭車，避開廣安站人潮" }
       ]
     },
     {
-      date: "2027-01-01", energy: "🟡🔴", who: "all",
-      summary: "元旦：影島一日，晚上遊艇",
+      date: "2027-01-01", energy: "🟡", who: "all",
+      summary: "元旦：松島纜車、白淺灘、Arte Museum",
       items: [
         { time: "11:00", title: "前一晚很晚睡，11 點後再出門" },
         { time: "中午", title: "松島海上纜車", spot: "songdo", ticket: true },
         { time: "下午", title: "白淺灘文化村，趁有陽光拍照（日落約 17:20）", spot: "huinnyeoul" },
-        { time: "傍晚", title: "Arte Museum（最晚 19:00 入場）", spot: "arte", ticket: true },
-        { time: "20:30+", title: "水營灣夜間煙火遊艇", spot: "yacht", ticket: true, note: "從影島過去約 45 分。累的話可改到 1/2 週六晚上（有無人機秀場次，但羅搭不到）" }
+        { time: "傍晚", title: "Arte Museum（最晚 19:00 入場，20:00 關門）", spot: "arte", ticket: true, note: "官網寫全年無休，不用預約、可以現場買票。逛完約 90 分鐘，建議 18:00 前進場；18:00 後人比較少" },
+        { time: "晚上", title: "回海雲台吃晚餐、休息" }
       ]
     },
     {
       date: "2027-01-02", energy: "🟢", who: "all",
-      summary: "羅上午出發；其他人西面醫美、下午逛百貨",
+      summary: "羅上午出發；其他人西面醫美、逛街，晚上煙火遊艇",
       items: [
         { time: "上午", title: "羅出發去機場（14:50 起飛）", who: ["luo"], flight: true },
         { time: "上午", title: "西面醫美（週六只開半天，要提早預約）", spot: "beauty", who: ["lin", "gao", "hong", "wu", "s"], tbd: true },
+        { time: "中午", title: "西面、田浦逛街", spot: "jeonpo", who: ["lin", "gao", "hong", "wu", "s"] },
         { time: "下午", title: "新世界 Centum City 或樂天百貨逛街", spot: "shinsegae-centum", who: ["lin", "gao", "hong", "wu", "s"] },
-        { time: "晚上", title: "（選擇性）廣安里週六無人機秀", spot: "gwangan", optional: true, note: "冬天有沒有表演要再確認" }
+        { time: "20:30+", title: "水營灣夜間煙火遊艇", spot: "yacht", ticket: true, who: ["lin", "gao", "hong", "wu", "s"], note: "從元旦改到這天。週六晚上廣安里如果有無人機秀，在船上可以看（冬天有沒有表演要再確認）。吳、S 隔天 07:00 要出發，不要訂太晚" }
       ],
       notes: ["醫美後 2～3 天不要去汗蒸幕或桑拿"]
     },
@@ -102,8 +105,8 @@ window.TRIP = {
       ]
     },
     {
-      date: "2027-01-04", energy: "🟡", who: ["lin", "gao"],
-      summary: "林、高自由日，三選一",
+      date: "2027-01-04", energy: "🟡", who: ["lin", "gao"], tentative: true,
+      summary: "林、高自由日，三選一（暫定）",
       choose: true,
       items: [
         { time: "選項 A", title: "慶州包車一日遊", spot: "gyeongju" },
@@ -112,8 +115,8 @@ window.TRIP = {
       ]
     },
     {
-      date: "2027-01-05", energy: "🟢", who: ["lin", "gao"],
-      summary: "西面逛街，晚上回國",
+      date: "2027-01-05", energy: "🟢", who: ["lin", "gao"], tentative: true,
+      summary: "西面逛街（暫定），晚上回國",
       items: [
         { time: "白天", title: "西面地下街、樂天百貨西面店", spot: "seomyeon" },
         { time: "16:30", title: "出發去機場（19:50 起飛）", flight: true }
@@ -189,7 +192,7 @@ window.TRIP = {
     "huinnyeoul": { area: "nampo", name: "白淺灘文化村", ko: "흰여울문화마을", tag: "흰여울문화마을",
       intro: "影島海邊懸崖上的白色小村莊，有海岸步道，常被叫「釜山的聖托里尼」。下午有陽光時最好拍，日落約 17:20。" },
     "arte": { area: "nampo", name: "Arte Museum 釜山", ko: "아르떼뮤지엄 부산", tag: "아르떼뮤지엄부산",
-      intro: "影島的沉浸式光影美術館，全室內。從白淺灘過去約 10 分鐘。元旦營業時間要再確認。Busan Pass 可用。" },
+      intro: "影島的沉浸式光影美術館，全室內。每天 10:00–20:00，最晚 19:00 入場，官網寫全年無休（元旦也開）。不用預約，可以現場買票；假日成人 ₩22,000。逛完約 90 分鐘，13:00–17:00 人最多，18:00 後比較少。從白淺灘過去約 10 分鐘。Busan Pass 可用。" },
     "taejongdae": { area: "nampo", name: "太宗台", ko: "태종대", tag: "태종대",
       intro: "影島最南端的海岸公園，有懸崖、燈塔和觀光小火車。" },
     "gamcheon": { area: "nampo", name: "甘川洞文化村", ko: "감천문화마을", tag: "감천문화마을",
@@ -209,13 +212,13 @@ window.TRIP = {
   },
 
   alternatives: [
-    { spot: "spaland",          length: "半天",  people: "任何人數", rain: true,  best: "12/30（洪補眠）、累的時候" },
+    { spot: "spaland",          length: "半天",  people: "任何人數", rain: true,  best: "12/30（洪可以直接來休息）、累的時候" },
     { spot: "shinsegae-centum", length: "半天",  people: "任何人數", rain: true,  best: "下雨天、1/2 下午" },
     { spot: "xthesky",          length: "1–2 小時", people: "任何人數", rain: true, best: "就在海雲台，隨時可塞" },
-    { spot: "jeonpo",           length: "半天",  people: "2–6 人",  rain: false, best: "1/3 晚上、1/5（林、高住西面）" },
+    { spot: "jeonpo",           length: "半天",  people: "2–6 人",  rain: false, best: "1/2 中午（已排）、1/5（林、高住西面）" },
     { spot: "taejongdae",       length: "半天",  people: "2–6 人",  rain: false, best: "1/4" },
     { spot: "dongbaek",         length: "1–2 小時", people: "任何人數", rain: false, best: "12/30 下午、元旦早上" },
-    { spot: "lotte-outlet",     length: "半天",  people: "任何人數", rain: true,  best: "12/31 順路或 1/4" },
+    { spot: "lotte-outlet",     length: "半天",  people: "任何人數", rain: true,  best: "12/30 下午或 1/4" },
     { spot: "gyeongju",         length: "一天",  people: "2–6 人（包車）", rain: false, best: "1/4（林、高）" },
     { spot: "jukseong",         length: "一天",  people: "2–6 人（包車）", rain: false, best: "1/4（林、高）" }
   ],
@@ -223,26 +226,27 @@ window.TRIP = {
   // 待決定：done=true 表示已經決定，result 寫結論
   decide: [
     { title: "要不要去慶州、哪天去", note: "目前放 1/4 給林、高，或當備選", done: false },
-    { title: "誰要做醫美、做什麼", note: "1/2 上午最多 5 人（林、高、洪、吳、S）；羅只能排 12/31 上午在海雲台做", done: false },
-    { title: "元旦遊艇要在 1/1 還是改 1/2", note: "1/1 很滿；1/2 週六有無人機秀場次但羅搭不到", done: false },
+    { title: "誰要做醫美、做什麼", note: "1/2 上午最多 5 人（林、高、洪、吳、S）；想當天就有效果的、還有羅，排 12/31 早上", done: false },
+    { title: "元旦遊艇要在 1/1 還是改 1/2", note: "", result: "改到 1/2（六）晚上，羅搭不到", done: true },
     { title: "1/4 林、高要去哪", note: "慶州／影島／機張三選一", done: false },
     { title: "天空膠囊怎麼分組", note: "每台最多 4 人，6 人分 4+2 或 3+3", done: false },
     { title: "Busan Pass 買哪種", note: "建議 Big 5（₩65,000），下單前以 Klook 價格為準", done: false },
-    { title: "12/30 剪頭髮要不要排", note: "", done: false }
+    { title: "12/30 剪頭髮要不要排", note: "只有林", done: false }
   ],
 
   // 要訂、要確認的事。deadline 用 YYYY-MM-DD，沒有就留空
   book: [
     { title: "天空膠囊 12/31（2 台）", deadline: "2026-12-01", note: "官網 12/1（二）開賣，開賣時間還沒確認", done: false },
-    { title: "醫美診所預約（1/2 週六上午）", deadline: "", note: "週六只開半天，越早約越好", done: false },
-    { title: "夜間煙火遊艇（6 人，20:30 以後）", deadline: "", note: "先確認元旦有沒有開船", done: false },
+    { title: "醫美診所預約（1/2 週六上午；部分人 12/31 早上）", deadline: "", note: "週六只開半天，越早約越好", done: false },
+    { title: "夜間煙火遊艇 1/2 晚上（5 人，20:30 以後）", deadline: "", note: "先確認當天場次", done: false },
     { title: "Busan Pass", deadline: "", note: "Klook 手機版", done: false },
     { title: "西面住宿 1/3–1/4（林、高）", deadline: "", note: "不急", done: false },
     { title: "吳、S 的班機", deadline: "", note: "", result: "12/30 10:50 抵達、1/3 10:00 起飛", done: true },
     { title: "傳訊息給海雲台房東確認入住時間", deadline: "2026-12-20", note: "房東要求 12 月出發前確認", done: false },
     { title: "查今年廣安里跨年公告", deadline: "2026-12-15", note: "往年約 12/15 公布", done: false },
     { title: "跨年看秀餐廳／酒吧訂位", deadline: "", note: "等 12 月中公告後再看", done: false },
-    { title: "確認 Spa Land、Arte Museum 元旦營業時間", deadline: "", note: "", done: false },
+    { title: "確認 Arte Museum 元旦營業時間", deadline: "", note: "", result: "官網寫全年無休，10:00–20:00，最晚 19:00 入場，不用預約", done: true },
+    { title: "確認 Spa Land 年底營業時間", deadline: "", note: "", done: false },
     { title: "慶州包車（如果要去）", deadline: "", note: "旺季建議 11 月訂", done: false }
   ],
 
@@ -308,6 +312,7 @@ window.TRIP = {
     notes: [
       "診所最集中在西面（西面站、田浦一帶），從海雲台搭地鐵 2 號線約 30 分。",
       "1/2 是週六，多數診所只開到 14–16 點；1/1 國定假日多半休息。",
+      "想做「立即漂亮型」的人，還有羅如果要做，排 12/31 早上。",
       "隔天要搭飛機的人，建議選恢復期短的項目（保養型雷射、水光、肉毒）。",
       "醫美後 2～3 天不要去汗蒸幕或桑拿，當晚少喝酒。",
       "以上是韓國診所的一般慣例，還沒有逐家查證。"

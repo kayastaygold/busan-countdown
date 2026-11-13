@@ -120,6 +120,7 @@ main > .card.has-st:first-child { margin-top: 16px; }
 .dh-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
 .dh-top h2 { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: 40px; line-height: 1.05; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; }
 .dh-top h2 small { font-family: var(--font); font-weight: 800; font-size: 14px; background: #fff; border: 2px solid var(--ink); border-radius: 999px; padding: 0 9px; letter-spacing: 0; transform: rotate(3deg); }
+.dh-top h2 small.tbd { background: var(--coral); transform: rotate(-3deg); }
 .dayhead p { font-weight: 700; margin: 4px 0 8px; }
 .energy { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 4px; background: #fff; border: 2px solid var(--ink); border-radius: 999px; padding: 1px 9px 1px 6px; font-size: 12.5px; font-weight: 700; white-space: nowrap; }
 .energy i { width: 11px; height: 11px; border-radius: 50%; border: 1.5px solid var(--ink); background: var(--c); }

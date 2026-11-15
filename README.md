@@ -4,7 +4,8 @@
 
 - 內容都在 `data.js`，改行程、打勾待辦只要改這個檔案
 - 顏色、字體在 `theme.css`（Memphis 風：粉、紫、黃、藍），換配色只改這個檔案
-- 版面和動畫在 `style.css`，圖示在 `icons.js`（自己畫的 SVG）
+- 版面和動畫在 `style.css`，圖示在 `icons.js`，景點小圖在 `art.js`（都是自己畫的 SVG）
+- 景點文字在 `data.js` 的 `spots`：`short` 一句話、`facts` 幾個重點
 - 愛心按鈕在 `likes.js`，資料存在 Firebase Firestore
 - 純靜態網頁，不需要建置
 

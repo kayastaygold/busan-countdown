@@ -80,6 +80,13 @@
           return '<span class="dot" style="--c:var(--p-' + id + ')">' + name(id) + "</span>";
         }).join("") + "</span>";
     });
+    // 小圖卡角落的愛心數（0 就不顯示）
+    (root || document).querySelectorAll("[data-likecount]").forEach(function (el) {
+      var list = likes[el.dataset.likecount] || [];
+      el.hidden = !list.length;
+      el.className = "tile-like" + (list.indexOf(me()) >= 0 ? " on" : "");
+      el.innerHTML = window.ICON("heart") + list.length;
+    });
     var w = document.getElementById("whoami");
     if (w) w.hidden = false;
     if (w) w.textContent = me() ? "我是 " + name(me()) : "我是誰？";

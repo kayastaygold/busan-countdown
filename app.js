@@ -37,15 +37,16 @@
   }
   function naver(q) { return "https://map.naver.com/p/search/" + encodeURIComponent(q); }
   function igTag(t) { return "https://www.instagram.com/explore/tags/" + encodeURIComponent(t) + "/"; }
-  function spotLinks(id, withIntro) {
+  function art(id) { return window.ART ? window.ART(id) : ""; }
+  function spotLinks(id) {
     var s = T.spots[id]; if (!s) return "";
     var h = '<div class="links">';
-    if (withIntro) h += '<a class="btn" href="#spots/' + id + '">' + I("star") + "介紹</a>";
     if (s.page) h += '<a class="btn" href="#' + s.page + '">' + I("sparkle") + "醫美頁</a>";
-    h += '<a class="btn ig" href="' + igTag(s.tag) + '" target="_blank" rel="noopener">' + I("ig") + "IG #" + esc(s.tag) + "</a>";
+    h += '<a class="btn ig" href="' + igTag(s.tag) + '" target="_blank" rel="noopener">' + I("ig") + "IG 熱門</a>";
     h += '<a class="btn nv" href="' + naver(s.ko) + '" target="_blank" rel="noopener">' + I("pin") + "Naver 地圖</a>";
     return h + "</div>";
   }
+  function likeCount(id) { return window.LIKES && LIKES.enabled ? '<span class="tile-like" data-likecount="' + id + '" hidden></span>' : ""; }
   function igCards(s) {
     if (!s.ig || !s.ig.length) return "";
     return '<div class="igrow">' + s.ig.map(function (p) {
@@ -57,7 +58,7 @@
   function likeBtn(id) { return window.LIKES ? LIKES.button(id) : ""; }
   function usedOn(id) {
     return T.days.filter(function (d) { return d.items.some(function (it) { return it.spot === id; }); })
-      .map(function (d) { return '<a href="#days/' + d.date + '">' + md(d.date) + "</a>"; });
+      .map(function (d) { return d.date; });
   }
   function staysFor(date) {
     return T.stays.filter(function (s) { return s.nights.indexOf(date) >= 0; });
@@ -172,12 +173,13 @@
     h += '<ol class="tl">' + d.items.map(function (it) {
       var s = it.spot && T.spots[it.spot];
       var cls = ["tl-item"]; if (it.optional) cls.push("opt"); if (it.tbd) cls.push("tbd"); if (it.flight) cls.push("fl");
-      var body = '<div class="tl-title">' + (it.flight ? I("plane") + " " : "") + esc(it.title) +
+      var body = '<div class="tl-txt"><div class="tl-title">' + (it.flight ? I("plane") + " " : "") + esc(it.title) +
         (it.ticket ? ' <span class="tag">' + I("ticket") + "Pass／要訂</span>" : "") +
         (it.optional ? ' <span class="tag">可跳過</span>' : "") + (it.tbd ? ' <span class="tag warn">未定</span>' : "") + "</div>";
       if (it.who) body += dots(it.who);
       if (it.note) body += '<p class="note">' + esc(it.note) + "</p>";
-      if (s) body += "<details><summary>" + esc(s.name) + "</summary><p>" + esc(s.intro) + "</p>" + igCards(s) + likeBtn(it.spot) + spotLinks(it.spot, true) + "</details>";
+      body += "</div>";
+      if (s) body += '<a class="tl-thumb" href="#spot/' + it.spot + '" aria-label="' + esc(s.name) + ' 介紹">' + art(it.spot) + "</a>";
       return '<li class="' + cls.join(" ") + '"><span class="tl-time">' + esc(it.time) + '</span><div class="tl-body">' + body + "</div></li>";
     }).join("") + "</ol>";
     if (d.notes) h += '<div class="card warnbox">' + d.notes.map(function (n) { return I("warn") + " " + esc(n); }).join("<br>") + "</div>";
@@ -186,7 +188,7 @@
     h += '<nav class="daynav">' +
       (prev ? '<a href="#days/' + prev.date + '">' + I("prev") + md(prev.date) + "</a>" : "<span></span>") +
       (next ? '<a href="#days/' + next.date + '">' + md(next.date) + I("next") + "</a>" : "<span></span>") + "</nav>" +
-      '<p class="hint">左右滑也可以換日期</p>';
+      '<p class="hint">左右滑換日期・點小圖看景點介紹</p>';
     return h;
   }
 
@@ -255,22 +257,22 @@
       var l = lodge[a.id];
       if (l) labels += sticker(a.x + l[1], a.y + l[2], l[0], { small: true, fill: "var(--yellow)", icon: "home" });
     });
-    svg += labels + '<a href="#spots/gyeongju">' + sticker(336, 15, "↑ 慶州 約 1 小時", { small: true, fill: "var(--coral)" }) + "</a></svg>";
+    svg += labels + '<a href="#spot/gyeongju">' + sticker(336, 15, "↑ 慶州 約 1 小時", { small: true, fill: "var(--coral)" }) + "</a></svg>";
     return svg;
   }
   function mapView() {
     var h = '<section class="card has-st">' + H("pin", "釜山分區示意圖", "pink") + mapSvg() +
-      '<p class="muted small">這是手畫的示意圖，位置和比例都是大概的。導航請點景點裡的 Naver 地圖。點區域可以看那一區的景點。</p></section>';
+      '<p class="muted small">這是手畫的示意圖，位置和比例是大概的。點區域看那一區的景點。</p></section>';
 
     h += '<section class="card has-st">' + H("star", "各區有什麼", "yellow") + AREA_ORDER.map(function (aid) {
       var list = Object.keys(T.spots).filter(function (k) { return T.spots[k].area === aid; });
       return '<div class="arearow"><b><a href="#spots/area-' + aid + '" style="--tone:var(--a-' + aid + ')">' + I(AREA_ICON[aid]) + esc(areaName(aid)) + "</a></b><span>" +
-        list.map(function (k) { return '<a href="#spots/' + k + '">' + esc(T.spots[k].name) + "</a>"; }).join("、") + "</span></div>";
+        list.map(function (k) { return '<a href="#spot/' + k + '">' + esc(T.spots[k].name) + "</a>"; }).join("、") + "</span></div>";
     }).join("") + "</section>";
 
     h += '<section class="card has-st">' + H("clock", "從海雲台住處出發大概多久", "sky") + '<table class="tbl">' +
       T.travel.map(function (r) { return "<tr><td><b>" + esc(r.to) + "</b></td><td>" + esc(r.time) + "</td></tr>"; }).join("") +
-      '</table><p class="muted small">估計值，不含等車和塞車。6 人分 2 台計程車在市區，車資跟地鐵差不多。</p></section>';
+      '</table><p class="muted small">估計值，不含等車和塞車。</p></section>';
     return h;
   }
 
@@ -283,23 +285,53 @@
   function areaHead(aid, prefix) {
     return '<div class="areabr"><h2 class="areah" id="' + prefix + aid + '" style="--tone:var(--a-' + aid + ')">' + I(AREA_ICON[aid]) + esc(areaName(aid)) + "</h2></div>";
   }
+  var SPOT_ORDER = [];
+  AREA_ORDER.forEach(function (aid) {
+    Object.keys(T.spots).forEach(function (k) { if (T.spots[k].area === aid) SPOT_ORDER.push(k); });
+  });
+  function tile(k) {
+    var s = T.spots[k], used = usedOn(k);
+    return '<a class="tile" href="#spot/' + k + '" style="--tone:var(--a-' + s.area + ')">' +
+      '<span class="tile-art">' + art(k) + likeCount(k) + "</span>" +
+      '<span class="tile-name">' + esc(s.name) + "</span>" +
+      '<span class="tile-sub">' + (used.length ? used.map(md).join("・") : "備選") + "</span></a>";
+  }
   function spotsView(target) {
     var h = areaPills(AREA_ORDER, function (a) { return 'href="#spots/area-' + a + '"'; });
     AREA_ORDER.forEach(function (aid) {
-      h += areaHead(aid, "area-");
-      Object.keys(T.spots).forEach(function (k) {
-        var s = T.spots[k]; if (s.area !== aid) return;
-        var used = usedOn(k);
-        h += '<article class="card spot" id="spot-' + k + '" style="--tone:var(--a-' + aid + ')"><h3>' + esc(s.name) + " <small>" + esc(s.ko) + "</small></h3>" +
-          "<p>" + esc(s.intro) + "</p>" + igCards(s) + likeBtn(k) +
-          (used.length ? '<p class="muted small">排在：' + used.join("、") + "</p>" : "") + spotLinks(k, false) + "</article>";
-      });
+      h += areaHead(aid, "area-") + '<div class="tiles">' +
+        SPOT_ORDER.filter(function (k) { return T.spots[k].area === aid; }).map(tile).join("") + "</div>";
     });
+    h += '<p class="hint">點小圖看介紹</p>';
     if (target) setTimeout(function () {
-      var el = document.getElementById(target.indexOf("area-") === 0 ? target : "spot-" + target);
-      if (el) { el.scrollIntoView({ block: "start" }); if (el.classList.contains("spot")) el.classList.add("flash"); }
+      var el = document.getElementById(target);
+      if (el) el.scrollIntoView({ block: "start" });
     }, 30);
     return h;
+  }
+
+  // ---------- 單一景點（從下面滑上來的卡片） ----------
+  function sheetHtml(id, dir) {
+    var s = T.spots[id], i = SPOT_ORDER.indexOf(id), used = usedOn(id);
+    var prev = SPOT_ORDER[i - 1], next = SPOT_ORDER[i + 1];
+    return '<div class="sheet-bg" data-close></div>' +
+      '<div class="sheet-card" role="dialog" aria-modal="true" aria-label="' + esc(s.name) + '" style="--tone:var(--a-' + s.area + ')">' +
+      '<button class="sheet-x" data-close aria-label="關閉">✕</button>' +
+      '<div class="sheet-in' + (dir ? " " + dir : "") + '">' +
+      '<div class="sheet-art">' + art(id) + "</div>" +
+      '<span class="sheet-area">' + I(AREA_ICON[s.area]) + esc(areaName(s.area)) + "</span>" +
+      "<h2>" + esc(s.name) + '</h2><p class="ko">' + esc(s.ko) + "</p>" +
+      '<p class="sheet-short">' + esc(s.short) + "</p>" +
+      '<ul class="facts">' + (s.facts || []).map(function (f) { return "<li>" + esc(f) + "</li>"; }).join("") + "</ul>" +
+      '<div class="sheet-days">' + I("cal") + (used.length ? "排在" + used.map(function (d) {
+        return '<a href="#days/' + d + '">' + md(d) + " 週" + wd(d) + "</a>";
+      }).join("") : "<span>還沒排，是備選</span>") + "</div>" +
+      igCards(s) + likeBtn(id) + spotLinks(id) + "</div>" +
+      '<nav class="sheet-nav">' +
+      (prev ? '<a href="#spot/' + prev + '" data-go="' + prev + '" aria-label="上一個景點">' + I("prev") + "</a>" : "<span></span>") +
+      "<b>" + (i + 1) + " / " + SPOT_ORDER.length + "</b>" +
+      (next ? '<a href="#spot/' + next + '" data-go="' + next + '" aria-label="下一個景點">' + I("next") + "</a>" : "<span></span>") +
+      "</nav></div>";
   }
 
   // ---------- 備選 ----------
@@ -313,10 +345,13 @@
       h += areaHead(aid, "alt-");
       T.alternatives.filter(function (a) { return T.spots[a.spot].area === aid; }).forEach(function (a) {
         var s = T.spots[a.spot];
-        h += '<article class="card alt" style="--tone:var(--a-' + aid + ')"><h3>' + esc(s.name) + "</h3>" +
-          '<div class="chips"><span>' + I("clock") + esc(a.length) + "</span><span>" + I("people") + esc(a.people) + "</span>" +
-          "<span>" + (a.rain ? I("umbrella") + "下雨 OK" : I("sun") + "晴天較好") + "</span></div>" +
-          "<p><b>適合：</b>" + esc(a.best) + '</p><p class="muted">' + esc(s.intro) + "</p>" + likeBtn(a.spot) + spotLinks(a.spot, true) + "</article>";
+        h += '<a class="card alt" href="#spot/' + a.spot + '" style="--tone:var(--a-' + aid + ')">' +
+          '<span class="alt-art">' + art(a.spot) + likeCount(a.spot) + "</span>" +
+          '<span class="alt-body"><b>' + esc(s.name) + "</b>" +
+          '<span class="chips"><span>' + I("clock") + esc(a.length) + "</span>" +
+          "<span>" + (a.rain ? I("umbrella") + "雨天 OK" : I("sun") + "晴天") + "</span>" +
+          (a.people ? "<span>" + I("people") + esc(a.people) + "</span>" : "") + "</span>" +
+          '<span class="alt-best">' + esc(a.best) + "</span></span></a>";
       });
     });
     return h;
@@ -382,8 +417,25 @@
     var left = el.getBoundingClientRect().left - box.getBoundingClientRect().left + box.scrollLeft - (box.clientWidth - el.offsetWidth) / 2;
     try { box.scrollTo({ left: left, behavior: smooth ? "smooth" : "auto" }); } catch (e) { box.scrollLeft = left; }
   }
+  var pageHash = null;                       // 現在畫在底下的那一頁
+  var sheetEl = document.createElement("div"); sheetEl.id = "sheet"; sheetEl.hidden = true; document.body.appendChild(sheetEl);
+  var sheetId = null, sheetPushed = false;
+
   function route() {
-    var parts = (location.hash.slice(1) || "overview").split("/");
+    var hash = location.hash.slice(1) || "overview";
+    var parts = hash.split("/");
+    if (parts[0] === "spots" && T.spots[parts[1]]) { location.replace("#spot/" + parts[1]); return; }   // 舊連結
+    if (parts[0] === "spot" && T.spots[parts[1]]) {
+      if (pageHash === null) render("spots");           // 直接開景點連結：底下先放景點頁
+      else if (sheetId === null) sheetPushed = true;
+      openSheet(parts[1]);
+      return;
+    }
+    if (sheetId !== null) { hideSheet(); if (hash === pageHash) return; }   // 關掉卡片，底下那頁不用重畫
+    render(hash);
+  }
+  function render(hash) {
+    var parts = hash.split("/");
     var tab = views[parts[0]] ? parts[0] : "overview";
     var oldPills = app.querySelector(".pills"), keep = oldPills && tab === prevTab ? oldPills.scrollLeft : null;
 
@@ -408,14 +460,65 @@
 
     if (!(tab === "spots" && parts[1])) window.scrollTo(0, 0);
     if (window.LIKES) { LIKES.paint(app); paintRank(); }
-    prevTab = tab;
+    prevTab = tab; pageHash = hash;
   }
+
+  function openSheet(id) {
+    var i = SPOT_ORDER.indexOf(id), old = sheetId === null ? -1 : SPOT_ORDER.indexOf(sheetId);
+    var dir = old < 0 || old === i ? "" : i > old ? "in-next" : "in-prev";
+    sheetEl.innerHTML = sheetHtml(id, dir);
+    sheetEl.className = old < 0 ? "opening" : "";
+    sheetEl.hidden = false;
+    document.documentElement.classList.add("sheet-open");
+    sheetId = id;
+    if (window.LIKES) LIKES.paint(sheetEl);
+  }
+  function hideSheet() {
+    sheetEl.hidden = true; sheetEl.innerHTML = "";
+    document.documentElement.classList.remove("sheet-open");
+    sheetId = null; sheetPushed = false;
+  }
+  function closeSheet() {
+    if (sheetId === null) return;
+    if (sheetPushed) history.back(); else location.replace("#" + (pageHash || "spots"));
+  }
+  function goSpot(step) {
+    var next = SPOT_ORDER[SPOT_ORDER.indexOf(sheetId) + step];
+    if (next) { location.replace("#spot/" + next); return; }
+    var card = sheetEl.querySelector(".sheet-in"); if (!card) return;
+    card.classList.remove("shake", "in-next", "in-prev"); void card.offsetWidth; card.classList.add("shake");
+    buzz(30);
+  }
+  sheetEl.addEventListener("click", function (e) {
+    if (e.target.closest("[data-close]")) { e.preventDefault(); closeSheet(); return; }
+    var go = e.target.closest("[data-go]");
+    if (go) { e.preventDefault(); location.replace("#spot/" + go.dataset.go); }
+  });
+  document.addEventListener("keydown", function (e) {
+    if (sheetId === null) return;
+    if (e.key === "Escape") closeSheet();
+    if (e.key === "ArrowRight") goSpot(1);
+    if (e.key === "ArrowLeft") goSpot(-1);
+  });
+  // 卡片裡左右滑：上一個／下一個景點
+  var hx = null, hy = 0;
+  sheetEl.addEventListener("touchstart", function (e) {
+    hx = null;
+    if (e.touches.length !== 1 || e.target.closest(".igrow")) return;
+    hx = e.touches[0].clientX; hy = e.touches[0].clientY;
+  }, { passive: true });
+  sheetEl.addEventListener("touchend", function (e) {
+    if (hx === null) return;
+    var t = e.changedTouches[0], dx = t.clientX - hx, dy = t.clientY - hy; hx = null;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 2) goSpot(dx < 0 ? 1 : -1);
+  }, { passive: true });
+
   function paintRank() {
     var el = document.getElementById("rank"); if (!el) return;
     if (!LIKES.isLoaded()) { el.innerHTML = '<p class="muted small">載入中…</p>'; return; }
     var r = LIKES.ranking().slice(0, 8);
     el.innerHTML = r.length ? '<ol class="rank">' + r.map(function (x) {
-      return '<li><a href="#spots/' + x.spot + '">' + esc(T.spots[x.spot].name) + "</a> " + dots(x.who) + "</li>";
+      return '<li><a href="#spot/' + x.spot + '">' + esc(T.spots[x.spot].name) + "</a> " + dots(x.who) + "</li>";
     }).join("") + "</ol>" : '<p class="muted small">還沒有人按愛心。</p>';
   }
   if (window.LIKES) LIKES.onChange(paintRank);

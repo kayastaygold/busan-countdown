@@ -225,6 +225,10 @@ html.sheet-open, html.sheet-open body { overflow: hidden; }
 .sheet-in.in-prev { animation: inL .24s cubic-bezier(.2, .8, .3, 1) backwards; }
 .sheet-x { position: absolute; top: 10px; right: 10px; z-index: 2; width: 36px; height: 36px; display: grid; place-items: center; font: inherit; font-size: 16px; font-weight: 900; color: var(--ink); background: var(--yellow); border: 2.5px solid var(--ink); border-radius: 50%; box-shadow: 2px 2px 0 var(--ink); cursor: pointer; padding: 0; }
 .sheet-art { aspect-ratio: 3 / 2; border: var(--bw) solid var(--ink); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin: 0 4px 16px 0; background: var(--lilac); }
+.sheet-art.photo { aspect-ratio: auto; overflow: visible; border: 0; box-shadow: none; background: none; }
+.sheet-art.photo img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border: var(--bw) solid var(--ink); border-radius: var(--radius); box-shadow: var(--shadow); background: var(--lilac); }
+.sheet-art.photo figcaption { margin: 8px 2px 0; font-size: 11px; line-height: 1.3; color: var(--text-2); }
+.sheet-art.photo figcaption a { color: inherit; font-weight: 600; text-decoration: underline; }
 .sheet-area { display: inline-flex; align-items: center; gap: 4px; background: var(--tone, var(--yellow)); border: 2px solid var(--ink); border-radius: 999px; padding: 0 10px 0 6px; font-size: 13px; font-weight: 800; transform: rotate(-2deg); }
 .sheet-area .ic { width: 15px; height: 15px; --ic: #fff; }
 .sheet-card h2 { font-size: 23px; font-weight: 900; line-height: 1.25; margin: 8px 0 0; }

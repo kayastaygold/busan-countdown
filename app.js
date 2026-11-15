@@ -318,7 +318,9 @@
       '<div class="sheet-card" role="dialog" aria-modal="true" aria-label="' + esc(s.name) + '" style="--tone:var(--a-' + s.area + ')">' +
       '<button class="sheet-x" data-close aria-label="關閉">✕</button>' +
       '<div class="sheet-in' + (dir ? " " + dir : "") + '">' +
-      '<div class="sheet-art">' + art(id) + "</div>" +
+      (s.photo ? '<figure class="sheet-art photo"><img src="' + esc(s.photo.src) + '" alt="' + esc(s.name) + '" width="960" height="640" decoding="async">' +
+        '<figcaption>照片：<a href="' + esc(s.photo.url) + '" target="_blank" rel="noopener">' + esc(s.photo.by) + "</a>・" + esc(s.photo.lic) + "</figcaption></figure>"
+        : '<div class="sheet-art">' + art(id) + "</div>") +
       '<span class="sheet-area">' + I(AREA_ICON[s.area]) + esc(areaName(s.area)) + "</span>" +
       "<h2>" + esc(s.name) + '</h2><p class="ko">' + esc(s.ko) + "</p>" +
       '<p class="sheet-short">' + esc(s.short) + "</p>" +

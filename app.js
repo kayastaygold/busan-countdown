@@ -46,7 +46,6 @@
     h += '<a class="btn nv" href="' + naver(s.ko) + '" target="_blank" rel="noopener">' + I("pin") + "Naver 地圖</a>";
     return h + "</div>";
   }
-  function likeCount(id) { return window.LIKES && LIKES.enabled ? '<span class="tile-like" data-likecount="' + id + '" hidden></span>' : ""; }
   function igCards(s) {
     if (!s.ig || !s.ig.length) return "";
     return '<div class="igrow">' + s.ig.map(function (p) {
@@ -291,10 +290,10 @@
   });
   function tile(k) {
     var s = T.spots[k], used = usedOn(k);
-    return '<a class="tile" href="#spot/' + k + '" style="--tone:var(--a-' + s.area + ')">' +
-      '<span class="tile-art">' + art(k) + likeCount(k) + "</span>" +
-      '<span class="tile-name">' + esc(s.name) + "</span>" +
-      '<span class="tile-sub">' + (used.length ? used.map(md).join("・") : "備選") + "</span></a>";
+    return '<div class="tile" style="--tone:var(--a-' + s.area + ')">' +
+      '<a class="tile-link" href="#spot/' + k + '"><span class="tile-art">' + art(k) + "</span>" +
+      '<span class="tile-name">' + esc(s.name) + "</span></a>" +
+      '<div class="tile-foot"><span class="tile-sub">' + (used.length ? used.map(md).join("・") : "備選") + "</span>" + likeBtn(k) + "</div></div>";
   }
   function spotsView(target) {
     var h = areaPills(AREA_ORDER, function (a) { return 'href="#spots/area-' + a + '"'; });
@@ -302,7 +301,7 @@
       h += areaHead(aid, "area-") + '<div class="tiles">' +
         SPOT_ORDER.filter(function (k) { return T.spots[k].area === aid; }).map(tile).join("") + "</div>";
     });
-    h += '<p class="hint">點小圖看介紹</p>';
+    h += '<p class="hint">點小圖看介紹，愛心可以直接按</p>';
     if (target) setTimeout(function () {
       var el = document.getElementById(target);
       if (el) el.scrollIntoView({ block: "start" });
@@ -345,13 +344,12 @@
       h += areaHead(aid, "alt-");
       T.alternatives.filter(function (a) { return T.spots[a.spot].area === aid; }).forEach(function (a) {
         var s = T.spots[a.spot];
-        h += '<a class="card alt" href="#spot/' + a.spot + '" style="--tone:var(--a-' + aid + ')">' +
-          '<span class="alt-art">' + art(a.spot) + likeCount(a.spot) + "</span>" +
+        h += '<div class="card alt" style="--tone:var(--a-' + aid + ')"><a class="alt-link" href="#spot/' + a.spot + '">' +
+          '<span class="alt-art">' + art(a.spot) + "</span>" +
           '<span class="alt-body"><b>' + esc(s.name) + "</b>" +
           '<span class="chips"><span>' + I("clock") + esc(a.length) + "</span>" +
-          "<span>" + (a.rain ? I("umbrella") + "雨天 OK" : I("sun") + "晴天") + "</span>" +
-          (a.people ? "<span>" + I("people") + esc(a.people) + "</span>" : "") + "</span>" +
-          '<span class="alt-best">' + esc(a.best) + "</span></span></a>";
+          "<span>" + (a.rain ? I("umbrella") + "雨天 OK" : I("sun") + "晴天") + "</span></span>" +
+          '<span class="alt-best">' + esc(a.best) + "</span></span></a>" + likeBtn(a.spot) + "</div>";
       });
     });
     return h;

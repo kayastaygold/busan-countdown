@@ -184,6 +184,7 @@ window.TRIP = {
       desc: "海雲台海灘西邊突出去的小島，現在已經跟陸地相連。沿著木棧道繞一圈約 20 到 30 分，途中有燈塔和 APEC 世峰樓，可以遠看廣安大橋和海雲台的高樓。",
       facts: ["可以看廣安大橋", "住處走路 20–25 分"] },
     "spaland": { area: "haeundae", name: "Spa Land 汗蒸幕", ko: "스파랜드 센텀시티", tag: "스파랜드", tagZh: "釜山汗蒸幕",
+      photo: {"src": "photos/spaland.jpg", "by": "Jaewon911", "lic": "公有領域（CC0）", "url": "https://commons.wikimedia.org/wiki/File:Spaland_centunm.jpg"},
       short: "百貨裡的大型汗蒸幕",
       desc: "新世界 Centum City 百貨裡的溫泉汗蒸幕，有很多種主題汗蒸房、溫泉池和休息區。環境新又乾淨，很適合第一次去汗蒸幕的人，可以待上半天。",
       facts: ["離海雲台地鐵 2 站", "補眠、下雨天都適合", "醫美後 2～3 天不要去", "Busan Pass 可用"] },

@@ -28,6 +28,7 @@
 - `photos/seomyeon.jpg`：[Seomyeon, Busan.jpg](https://commons.wikimedia.org/wiki/File:Seomyeon,_Busan.jpg)，Carey Ciuro，CC BY 2.0
 - `photos/shinsegae-centum.jpg`：[Shinsegye Dept store Centum city.JPG](https://commons.wikimedia.org/wiki/File:Shinsegye_Dept_store_Centum_city.JPG)，Modamoda，CC BY-SA 3.0
 - `photos/songdo.jpg`：[Songdo Cloud Trails Skywalk Songdo Beach Busan (30809005967).jpg](https://commons.wikimedia.org/wiki/File:Songdo_Cloud_Trails_Skywalk_Songdo_Beach_Busan_(30809005967).jpg)，bryan...，CC BY-SA 2.0
+- `photos/spaland.jpg`：[Spaland centunm.jpg](https://commons.wikimedia.org/wiki/File:Spaland_centunm.jpg)，Jaewon911，CC0
 - `photos/taejongdae.jpg`：[Taejongdae in 2018.jpg](https://commons.wikimedia.org/wiki/File:Taejongdae_in_2018.jpg)，Christophe95，CC BY-SA 4.0
 - `photos/xthesky.jpg`：[Haeundae Beach 20200522 005.jpg](https://commons.wikimedia.org/wiki/File:Haeundae_Beach_20200522_005.jpg)，Mobius6，CC BY-SA 4.0
 - `photos/yonggungsa.jpg`：[Haedong Yonggungsa Temple, Busan, South Korea.jpg](https://commons.wikimedia.org/wiki/File:Haedong_Yonggungsa_Temple,_Busan,_South_Korea.jpg)，Anna L Martin，CC BY 2.0

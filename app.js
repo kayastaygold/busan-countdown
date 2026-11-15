@@ -42,7 +42,8 @@
     var s = T.spots[id]; if (!s) return "";
     var h = '<div class="links">';
     if (s.page) h += '<a class="btn" href="#' + s.page + '">' + I("sparkle") + "醫美頁</a>";
-    h += '<a class="btn ig" href="' + igTag(s.tag) + '" target="_blank" rel="noopener">' + I("ig") + "IG 熱門</a>";
+    if (s.tagZh) h += '<a class="btn ig" href="' + igTag(s.tagZh) + '" target="_blank" rel="noopener">' + I("ig") + "中文分享</a>";
+    h += '<a class="btn ig' + (s.tagZh ? " ig2" : "") + '" href="' + igTag(s.tag) + '" target="_blank" rel="noopener">' + I("ig") + "韓文在地</a>";
     h += '<a class="btn nv" href="' + naver(s.ko) + '" target="_blank" rel="noopener">' + I("pin") + "Naver 地圖</a>";
     return h + "</div>";
   }
@@ -321,6 +322,7 @@
       '<span class="sheet-area">' + I(AREA_ICON[s.area]) + esc(areaName(s.area)) + "</span>" +
       "<h2>" + esc(s.name) + '</h2><p class="ko">' + esc(s.ko) + "</p>" +
       '<p class="sheet-short">' + esc(s.short) + "</p>" +
+      (s.desc ? '<p class="sheet-desc">' + esc(s.desc) + "</p>" : "") +
       '<ul class="facts">' + (s.facts || []).map(function (f) { return "<li>" + esc(f) + "</li>"; }).join("") + "</ul>" +
       '<div class="sheet-days">' + I("cal") + (used.length ? "排在" + used.map(function (d) {
         return '<a href="#days/' + d + '">' + md(d) + " 週" + wd(d) + "</a>";
@@ -399,17 +401,85 @@
     }).join("");
   }
 
-  // ---------- 醫美 ----------
-  function beautyView() {
-    var b = T.beauty;
-    return '<section class="card has-st beauty">' + H("sparkle", "醫美", "lilac") + '<p><span class="tag warn">' + esc(b.status) + "</span></p>" +
-      "<ul>" + b.notes.map(function (n) { return "<li>" + esc(n) + "</li>"; }).join("") + "</ul>" +
-      '<p><a href="#days/2027-01-02">看 1/2 行程 →</a></p></section>';
+  // ---------- 醫美：一步一題的選單＋全部比較表 ----------
+  var BQ = [
+    { q: "想改善什麼？", opts: [["lift", "輪廓拉提", "臉變緊、變小、線條明顯"], ["skin", "膚質改善", "毛孔、暗沉、細紋、痘疤"]], skip: "都想要" },
+    { q: "可以接受恢復期嗎？", opts: [["none", "不要恢復期", "做完就能照常出門"], ["days", "可以紅腫幾天", "換比較明顯的效果"]], skip: "都可以" },
+    { q: "希望維持多久？", opts: [["weeks", "幾週", "保養型，價格低"], ["months", "幾個月", ""], ["half", "半年以上", ""]], skip: "都可以" }
+  ];
+  var BKEY = ["goal", "rec", "last"];
+  function bMatch(it, sel) {
+    return sel.every(function (v, i) {
+      if (!v || v === "any") return true;
+      return i === 0 ? it.goal.indexOf(v) >= 0 : it[BKEY[i]] === v;
+    });
+  }
+  function nt(n) { return n.toLocaleString("en-US"); }
+  function twPrice(it) { return "NT$" + nt(it.twPrice[0]) + "–" + nt(it.twPrice[1]); }
+  function krPrice(it) { return "₩" + it.krPrice[0] + "–" + it.krPrice[1] + " 萬"; }
+  function krInTw(it) {
+    var w = T.beauty.won;
+    function r(n) { var v = n * w, u = v < 5000 ? 100 : 500; return nt(Math.round(v / u) * u); }
+    return "約 NT$" + r(it.krPrice[0]) + "–" + r(it.krPrice[1]);
+  }
+  function bLabel(i, v) {
+    var o = BQ[i].opts.filter(function (x) { return x[0] === v; })[0];
+    return o ? o[1] : BQ[i].skip;
+  }
+  function bCard(it) {
+    return '<article class="card bcard"><h3>' + esc(it.name) + "</h3>" +
+      '<p class="btags">' + (it.now ? '<span class="tag now">' + I("bolt") + "當天有感</span>" : '<span class="tag">效果慢慢出來</span>') +
+      (it.now && it.rec === "none" ? '<span class="tag d31">適合 12/31</span>' : "") +
+      (it.rec === "days" ? '<span class="tag warn">有恢復期</span>' : "") + "</p>" +
+      "<p>" + esc(it.what) + "</p>" +
+      '<dl class="bdl"><dt>恢復期</dt><dd>' + esc(it.recText) + "</dd><dt>維持</dt><dd>" + esc(it.lastText) + "</dd><dt>劑量</dt><dd>" + esc(it.dose) + "</dd></dl>" +
+      '<div class="bprice"><div><small>韓國</small><b>' + krPrice(it) + "</b><span>" + krInTw(it) + "</span></div>" +
+      "<div><small>台灣</small><b>" + twPrice(it) + "</b></div></div>" +
+      '<p class="bnames"><span>台灣叫：' + esc(it.tw) + '</span><span>韓國叫：<b lang="ko">' + esc(it.kr) + "</b>（" + esc(it.krRead) + "）</span></p></article>";
+  }
+  function beautyView(mode, parts) {
+    var b = T.beauty, sel = mode === "pick" ? parts.slice(2, 5) : [], step = sel.length, all = mode === "all";
+    var h = '<nav class="seg"><a href="#beauty" class="' + (all ? "" : "on") + '">' + I("dice") + '一步一步選</a><a href="#beauty/all" class="' + (all ? "on" : "") + '">' + I("star") + "直接看全部</a></nav>";
+
+    if (all) {
+      h += '<section class="card has-st">' + H("sparkle", "全部療程比較", "lilac") + '<div class="bscroll"><table class="btbl"><thead><tr><th>療程</th><th>台灣叫法</th><th>韓國叫法</th><th>台灣價</th><th>韓國價</th></tr></thead><tbody>' +
+        [["lift", "輪廓拉提"], ["skin", "膚質改善"]].map(function (g) {
+          return '<tr class="grp"><th>' + g[1] + '</th><td colspan="4"></td></tr>' + b.items.filter(function (it) { return it.goal[0] === g[0]; }).map(function (it) {
+            return "<tr><th>" + esc(it.name) + (it.now && it.rec === "none" ? '<span class="tag d31">適合 12/31</span>' : "") + "</th><td>" + esc(it.tw) + '</td><td><span lang="ko">' + esc(it.kr) + "</span><small>" + esc(it.krRead) + "</small></td><td>" +
+              twPrice(it) + "<small>" + esc(it.dose) + "</small></td><td>" + krPrice(it) + "<small>" + krInTw(it) + "</small></td></tr>";
+          }).join("");
+        }).join("") + '</tbody></table></div><p class="hint">表格可以左右滑</p></section>';
+    } else if (step < BQ.length) {
+      var q = BQ[step], base = "#beauty/pick" + sel.map(function (v) { return "/" + v; }).join("");
+      h += '<section class="card bq"><div class="bstep">' + BQ.map(function (_, i) { return '<i class="' + (i < step ? "done" : i === step ? "cur" : "") + '"></i>'; }).join("") +
+        "<span>" + (step + 1) + " / " + BQ.length + "</span></div><h2>" + esc(q.q) + "</h2>" +
+        q.opts.map(function (o, i) {
+          var n = b.items.filter(function (it) { return bMatch(it, sel.concat(o[0])); }).length;
+          return (n ? '<a class="bopt" href="' + base + "/" + o[0] + '"' : '<span class="bopt off"') + ' style="--tone:var(--' + ["pink", "yellow", "sky"][i] + ')"><b>' + esc(o[1]) + "</b>" +
+            (o[2] ? "<span>" + esc(o[2]) + "</span>" : "") + "<em>" + (n ? n + " 項" : "沒有符合的") + "</em>" + (n ? "</a>" : "</span>");
+        }).join("") +
+        '<div class="bnav">' + (step ? '<a class="btn" href="' + (step === 1 ? "#beauty" : "#beauty/pick/" + sel.slice(0, -1).join("/")) + '">' + I("prev") + "上一步</a>" : "<span></span>") +
+        '<a class="btn skip" href="' + base + '/any">' + esc(q.skip) + I("next") + "</a></div></section>";
+    } else {
+      var list = b.items.filter(function (it) { return bMatch(it, sel); });
+      h += '<section class="card bq done"><p class="bsel">' + sel.map(function (v, i) { return "<span>" + esc(bLabel(i, v)) + "</span>"; }).join("") + "</p>" +
+        "<h2>" + (list.length ? "符合的有 " + list.length + " 項" : "沒有完全符合的") + "</h2>" +
+        '<div class="bnav"><a class="btn" href="#beauty/pick/' + sel.slice(0, -1).join("/") + '">' + I("prev") + '上一步</a><a class="btn skip" href="#beauty">重新選</a></div></section>' +
+        list.map(bCard).join("") + (list.length ? "" : '<p class="muted center">回上一步換個選項，或直接看全部。</p>');
+    }
+
+    h += '<section class="card has-st beauty">' + H("warn", "先知道", "yellow") + "<ul>" + b.notes.map(function (n) { return "<li>" + esc(n) + "</li>"; }).join("") + "</ul>" +
+      '<p class="muted small">價格是網路行情整理的概略區間，僅供參考，實際以診所報價為準。韓元換算用 ₩10,000 ≈ NT$' + b.won + "。" +
+      (b.status ? "<br>" + esc(b.status) + "。" : "") + "</p>" +
+      (b.source ? '<p class="muted small">資料來源：' + b.source.map(function (l) {
+        return '<a href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.label) + "</a>";
+      }).join("、") + "</p>" : "") + "</section>";
+    return h;
   }
 
   // ---------- 路由＋切頁動畫 ----------
   var views = { overview: overview, days: daysView, map: mapView, spots: spotsView, alts: altsView, todo: todoView, prep: prepView, beauty: beautyView };
-  var prevTab = null, prevDay = -1;
+  var prevTab = null, prevDay = -1, prevBeauty = null, prevBStep = 0;
   function center(box, el, smooth) {
     if (!box || !el) return;
     var left = el.getBoundingClientRect().left - box.getBoundingClientRect().left + box.scrollLeft - (box.clientWidth - el.offsetWidth) / 2;
@@ -444,8 +514,13 @@
       if (prevTab === "days" && prevDay >= 0 && idx !== prevDay) anim = idx > prevDay ? "slide-next" : "slide-prev";
       prevDay = idx;
     }
+    if (tab === "beauty" && prevTab === "beauty" && parts[1] !== "all" && prevBeauty !== "all") {
+      var bs = parts[1] === "pick" ? parts.length - 2 : 0;
+      if (bs !== prevBStep) anim = bs > prevBStep ? "slide-next" : "slide-prev";
+    }
+    if (tab === "beauty") { prevBeauty = parts[1]; prevBStep = parts[1] === "pick" ? parts.length - 2 : 0; }
     app.className = "";
-    app.innerHTML = views[tab](parts[1]);
+    app.innerHTML = views[tab](parts[1], parts);
     void app.offsetWidth;
     app.className = anim;
 

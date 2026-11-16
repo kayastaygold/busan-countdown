@@ -28,3 +28,20 @@
 - `photos/lotte-world.jpg`：[Giant Digger, Lotte World Adventure Busan, c. June 2022,.jpg](https://commons.wikimedia.org/wiki/File:Giant_Digger,_Lotte_World_Adventure_Busan,_c._June_2022,.jpg)，Gruturgi，公有領域
 
 另外這幾張是站主另外提供的網路圖片，不是維基共享資源的授權照片，有浮水印的保留原樣並在照片下方標示來源：`photos/blueline.jpg`、`photos/xthesky.jpg`、`photos/dongbaek.jpg`、`photos/spaland.jpg`、`photos/yacht.jpg`、`photos/millak.jpg`、`photos/countdown.jpg`、`photos/jukseong.jpg`、`photos/songdo.jpg`、`photos/arte.jpg`、`photos/jeonpo.jpg`、`photos/gyeongju.jpg`、`photos/luge.jpg`。原作者如果希望移除，請開 issue，會馬上拿掉。
+
+## 行李清單（Firebase 規則）
+
+行李清單存在 Firestore 的 `packing/{人}`，要在 Firebase 後台的 Firestore 規則裡加上 `packing` 這段（放在 `match /databases/{database}/documents { ... }` 裡面，和 `likes` 那段並排）：
+
+```
+match /packing/{who} {
+  allow read: if true;
+  allow create, update: if who in ['lin', 'gao', 'hong', 'luo', 'wu', 's']
+    && request.resource.data.keys().hasOnly(['done', 'extra', 'at'])
+    && request.resource.data.done is list && request.resource.data.done.size() <= 80
+    && request.resource.data.extra is list && request.resource.data.extra.size() <= 30
+    && request.resource.data.at is timestamp;
+}
+```
+
+規則還沒加之前，清單會先存在各自的手機上，加好之後下次打勾會自動上傳。

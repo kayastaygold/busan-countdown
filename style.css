@@ -388,3 +388,29 @@ html.sheet-open, html.sheet-open body { overflow: hidden; }
 .sheet-hours small { display: block; font-size: 11.5px; color: var(--text-2); margin-top: 2px; }
 .sheet-best { margin: 8px 0 0; font-size: 14px; font-weight: 700; }
 .btn.go { background: var(--coral); }
+
+/* 行李清單 */
+.pk-team { display: grid; gap: 6px; margin: 10px 0 4px; }
+.pk-pp { display: grid; grid-template-columns: 42px 1fr 46px; align-items: center; gap: 8px; }
+.pk-pp b { font-family: var(--font-display); font-weight: 400; font-size: 15px; letter-spacing: .4px; text-align: right; }
+.pk-pp.me .dot { box-shadow: 2px 2px 0 var(--ink); }
+.pk-bar { height: 14px; background: #fff; border: 2px solid var(--ink); border-radius: 999px; overflow: hidden; }
+.pk-bar i { display: block; height: 100%; background: var(--c); border-right: 2px solid var(--ink); transition: width .3s ease-out; }
+.pk-bar i[style^="width:0%"] { border-right: 0; }
+.pk-who { margin-top: 12px; font-size: 15px; padding: 7px 14px; }
+.pk-mine { margin: 16px 0 0; font-size: 16px; font-weight: 900; }
+.pk-g { font-size: 13px; font-weight: 800; color: var(--text-2); margin: 12px 0 2px; }
+.pk { display: flex; align-items: center; gap: 10px; padding: 7px 2px; border-bottom: 1.5px dashed rgba(22, 19, 15, .18); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.pk input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.pk-box { flex: none; width: 24px; height: 24px; border: 2.5px solid var(--ink); border-radius: 7px; background: #fff; display: grid; place-items: center; transition: transform .08s ease-out, background .12s; }
+.pk.on .pk-box { background: var(--yellow); box-shadow: 2px 2px 0 var(--ink); }
+.pk.on .pk-box::after { content: ""; width: 10px; height: 6px; border-left: 3px solid var(--ink); border-bottom: 3px solid var(--ink); transform: translateY(-2px) rotate(-45deg); }
+.pk:active .pk-box { transform: scale(.88); }
+.pk input:focus-visible + .pk-box { outline: 3px solid var(--blue); outline-offset: 2px; }
+.pk-t { flex: 1; font-size: 15px; line-height: 1.4; }
+.pk.on .pk-t { color: var(--text-2); text-decoration: line-through; text-decoration-thickness: 2px; }
+.pk-del { flex: none; width: 28px; height: 28px; border: 2px solid var(--ink); border-radius: 50%; background: #fff; font: inherit; font-size: 12px; font-weight: 900; color: var(--ink); cursor: pointer; padding: 0; }
+.pk-add { display: flex; gap: 8px; margin-top: 10px; }
+.pk-add input { flex: 1; min-width: 0; font: inherit; font-size: 16px; padding: 6px 12px; border: 2.5px solid var(--ink); border-radius: 999px; background: #fff; color: var(--ink); }
+.pk-add .btn { font-size: 15px; padding: 5px 14px; }
+@media (prefers-reduced-motion: reduce) { .pk-bar i, .pk-box { transition: none; } }

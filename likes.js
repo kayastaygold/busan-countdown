@@ -96,7 +96,7 @@
   });
   listeners.push(function () { paint(); });
 
-  window.LIKES = { enabled: enabled, button: button, paint: paint, ranking: ranking, load: load,
+  window.LIKES = { enabled: enabled, me: me, pick: pick, button: button, paint: paint, ranking: ranking, load: load,
     onChange: function (f) { listeners.push(f); }, isLoaded: function () { return loaded; } };
   if (enabled) { load(); setInterval(load, 60000); }
 })();

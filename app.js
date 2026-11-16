@@ -381,7 +381,10 @@
   // ---------- 行前注意事項 ----------
   function prepView() {
     var tones = ["sky", "yellow", "pink", "lilac"];
-    return T.prep.map(function (sec, i) {
+    var pack = window.PACK && PACK.enabled ? '<section class="card has-st pack">' + H("check", "行李清單", "pink") +
+      '<p class="muted small">自己的勾自己的，別人只看得到你勾了幾項。</p><div id="packbox"></div></section>' : "";
+    if (pack) setTimeout(function () { PACK.paint(); PACK.load(); }, 0);
+    return pack + T.prep.map(function (sec, i) {
       return '<section class="card has-st prep">' + H(I.has(sec.icon) ? sec.icon : "bag", sec.title, tones[i % tones.length]) +
         (sec.lead ? "<p>" + esc(sec.lead) + "</p>" : "") +
         (sec.rows ? '<table class="tbl">' + sec.rows.map(function (r) {

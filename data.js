@@ -359,6 +359,40 @@ window.TRIP = {
   ],
 
   // 行前注意事項（icon 是 icons.js 裡的圖示名稱）
+  // 行李清單：每個人自己打勾，存在 Firebase（packing/{人}）。id 不要改，改了大家勾過的會不見。
+  packing: [
+    { group: "證件・錢", items: [
+      ["passport", "護照（效期 6 個月以上）"],
+      ["ticket", "電子機票、訂房資料（存手機）"],
+      ["keta", "K-ETA：免申請到 2026/12/31，我們入境在這之前，不用辦"],
+      ["won", "韓元現金"],
+      ["card", "海外回饋高的信用卡"],
+      ["tmoney", "T-money 或 WOWPASS 卡"],
+      ["insurance", "旅平險、不便險"]
+    ] },
+    { group: "手機・電子", items: [
+      ["sim", "eSIM 或網卡"],
+      ["apps", "叫車 App 註冊好（Uber、K.Ride）"],
+      ["naver", "Naver Map、Papago"],
+      ["plug", "轉接頭（韓國 220V 圓頭）"],
+      ["charger", "充電器、充電線"],
+      ["power", "行動電源（隨身帶，不能托運）"]
+    ] },
+    { group: "保暖", items: [
+      ["down", "羽絨外套"],
+      ["thermal", "發熱衣、發熱褲"],
+      ["scarf", "圍巾、手套、毛帽"],
+      ["heat", "暖暖包（跨年夜要站很久）"],
+      ["shoes", "好走的鞋"]
+    ] },
+    { group: "日用", items: [
+      ["meds", "常用藥、感冒藥、腸胃藥"],
+      ["lotion", "乳液、護唇膏（很乾）"],
+      ["toilet", "盥洗用品"],
+      ["bag", "折疊購物袋"]
+    ] }
+  ],
+
   prep: [
     {
       icon: "thermo", title: "天氣",

@@ -56,7 +56,16 @@
         return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="6.5" fill="' + HOT + '"/><circle cx="' + p[0] + '" cy="' + p[1] + '" r="2.2" fill="' + Y + '" stroke-width="1.4"/>';
       }).join(""),
 
-    "spaland": bg(PK) + '<path d="M42 34q-7-7 0-14t0-14M60 34q-7-7 0-14t0-14M78 34q-7-7 0-14t0-14" fill="none" stroke="' + W + '" stroke-width="5"/>' +
+    // 青沙浦：紅白燈塔＋伸到海上的展望台
+    "cheongsapo": bg(SK) + sun(98, 14, 7) + cloud(20, 8) + sea(44, B) +
+      '<path d="M-4 40q20-8 34 0v44H-4z" fill="' + G + '"/>' +
+      '<path d="M26 50q30-10 52 8" fill="none" stroke="' + K + '" stroke-width="9" stroke-linecap="round"/><path d="M26 50q30-10 52 8" fill="none" stroke="' + Y + '" stroke-width="5" stroke-linecap="round"/>' +
+      '<path d="M40 46v14M56 45v16M70 51v12" stroke-width="2"/>' +
+      '<path d="M88 46l2-22h8l2 22z" fill="' + C + '"/><rect x="88" y="18" width="12" height="6" fill="' + W + '"/><path d="M87 18l7-6 7 6z" fill="' + K + '"/>' +
+      '<path d="M104 52l2-18h6l2 18z" fill="' + W + '"/><rect x="104" y="29" width="10" height="5" fill="' + Y + '"/>' +
+      spark(16, 62, 0.6, W),
+
+    "spaland":bg(PK) + '<path d="M42 34q-7-7 0-14t0-14M60 34q-7-7 0-14t0-14M78 34q-7-7 0-14t0-14" fill="none" stroke="' + W + '" stroke-width="5"/>' +
       '<path d="M42 34q-7-7 0-14t0-14M60 34q-7-7 0-14t0-14M78 34q-7-7 0-14t0-14" fill="none" stroke-width="1.6"/>' +
       '<path d="M20 48h80l-7 28H27z" fill="' + Y + '"/><ellipse cx="60" cy="48" rx="40" ry="9" fill="' + SK + '"/>' +
       '<path d="M34 49q4-3 8 0t8 0M66 49q4-3 8 0t8 0" fill="none" stroke-width="1.6"/><path d="M24 62h72" stroke-width="1.6"/>',

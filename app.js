@@ -43,7 +43,7 @@
     var h = '<div class="links">';
     if (s.page) h += '<a class="btn" href="#' + s.page + '">' + I("sparkle") + "醫美頁</a>";
     (s.links || []).forEach(function (l) {
-      h += '<a class="btn go" href="' + esc(l.url) + '" target="_blank" rel="noopener">' + I("ticket") + esc(l.label) + "</a>";
+      h += '<a class="btn go" href="' + esc(l.url) + '" target="_blank" rel="noopener">' + I(l.icon || "ticket") + esc(l.label) + "</a>";
     });
     if (s.tagZh) h += '<a class="btn ig" href="' + igTag(s.tagZh) + '" target="_blank" rel="noopener">' + I("ig") + "中文分享</a>";
     h += '<a class="btn ig' + (s.tagZh ? " ig2" : "") + '" href="' + igTag(s.tag) + '" target="_blank" rel="noopener">' + I("ig") + "韓文在地</a>";

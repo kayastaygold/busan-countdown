@@ -5,7 +5,7 @@
   var WEEK = ["日", "一", "二", "三", "四", "五", "六"];
   var AREA_ORDER = ["haeundae", "gwangan", "gijang", "nampo", "seomyeon", "gyeongju"];
   var AREA_ICON = { haeundae: "wave", gwangan: "bridge", gijang: "temple", nampo: "fish", seomyeon: "shop", gyeongju: "hill", airport: "plane" };
-  var TAB_ICON = { overview: "home", days: "cal", map: "pin", spots: "star", alts: "dice", todo: "check", prep: "bag", beauty: "sparkle" };
+  var TAB_ICON = { overview: "home", days: "cal", map: "pin", spots: "star", todo: "check", prep: "bag", beauty: "sparkle" };
   var DAY_TONES = ["pink", "yellow", "blue", "purple", "teal", "coral", "pink", "yellow"];
   var INK = "#16130f";
 
@@ -42,6 +42,9 @@
     var s = T.spots[id]; if (!s) return "";
     var h = '<div class="links">';
     if (s.page) h += '<a class="btn" href="#' + s.page + '">' + I("sparkle") + "醫美頁</a>";
+    (s.links || []).forEach(function (l) {
+      h += '<a class="btn go" href="' + esc(l.url) + '" target="_blank" rel="noopener">' + I("ticket") + esc(l.label) + "</a>";
+    });
     if (s.tagZh) h += '<a class="btn ig" href="' + igTag(s.tagZh) + '" target="_blank" rel="noopener">' + I("ig") + "中文分享</a>";
     h += '<a class="btn ig' + (s.tagZh ? " ig2" : "") + '" href="' + igTag(s.tag) + '" target="_blank" rel="noopener">' + I("ig") + "韓文在地</a>";
     h += '<a class="btn nv" href="' + naver(s.ko) + '" target="_blank" rel="noopener">' + I("pin") + "Naver 地圖</a>";
@@ -296,15 +299,23 @@
       '<span class="tile-name">' + esc(s.name) + "</span></a>" +
       '<div class="tile-foot"><span class="tile-sub">' + (used.length ? used.map(md).join("・") : "備選") + "</span>" + likeBtn(k) + "</div></div>";
   }
-  function spotsView(target) {
-    var h = areaPills(AREA_ORDER, function (a) { return 'href="#spots/area-' + a + '"'; });
-    AREA_ORDER.forEach(function (aid) {
+  var FILTERS = [["", "全部", "star"], ["free", "還沒排的", "dice"], ["rain", "下雨也能去", "umbrella"]];
+  function spotsView(arg) {
+    var f = arg === "rain" || arg === "free" ? arg : "";
+    function keep(k) { return f === "rain" ? T.spots[k].rain : f === "free" ? !usedOn(k).length : true; }
+    var areas = AREA_ORDER.filter(function (aid) { return SPOT_ORDER.some(function (k) { return T.spots[k].area === aid && keep(k); }); });
+    var h = '<nav class="seg three">' + FILTERS.map(function (x) {
+      return '<a href="#spots' + (x[0] ? "/" + x[0] : "") + '" class="' + (x[0] === f ? "on" : "") + '">' + I(x[2]) + x[1] + "</a>";
+    }).join("") + "</nav>";
+    if (f) h += '<p class="muted small">' + (f === "rain" ? "室內或有遮蔽，下雨天可以改去這些。" : "還沒排進行程的，太累或時間多出來的時候用。") + "</p>";
+    h += areaPills(areas, function (a) { return 'href="#spots/area-' + a + '" data-jump="area-' + a + '"'; });
+    areas.forEach(function (aid) {
       h += areaHead(aid, "area-") + '<div class="tiles">' +
-        SPOT_ORDER.filter(function (k) { return T.spots[k].area === aid; }).map(tile).join("") + "</div>";
+        SPOT_ORDER.filter(function (k) { return T.spots[k].area === aid && keep(k); }).map(tile).join("") + "</div>";
     });
     h += '<p class="hint">點小圖看介紹，愛心可以直接按</p>';
-    if (target) setTimeout(function () {
-      var el = document.getElementById(target);
+    if (arg && arg.indexOf("area-") === 0) setTimeout(function () {
+      var el = document.getElementById(arg);
       if (el) el.scrollIntoView({ block: "start" });
     }, 30);
     return h;
@@ -325,39 +336,21 @@
       '<span class="sheet-area">' + I(AREA_ICON[s.area]) + esc(areaName(s.area)) + "</span>" +
       "<h2>" + esc(s.name) + '</h2><p class="ko">' + esc(s.ko) + "</p>" +
       '<p class="sheet-short">' + esc(s.short) + "</p>" +
+      (s.len ? '<div class="chips"><span>' + I("clock") + "約 " + esc(s.len) + "</span><span>" +
+        (s.rain ? I("umbrella") + "下雨也能去" : I("sun") + "晴天比較好") + "</span></div>" : "") +
       (s.desc ? '<p class="sheet-desc">' + esc(s.desc) + "</p>" : "") +
       '<ul class="facts">' + (s.facts || []).map(function (f) { return "<li>" + esc(f) + "</li>"; }).join("") + "</ul>" +
+      (s.hours ? '<div class="sheet-hours">' + I("clock") + "<div><b>營業時間</b><span>" + esc(s.hours) + "</span><small>網路上查的，出發前再確認</small></div></div>" : "") +
       '<div class="sheet-days">' + I("cal") + (used.length ? "排在" + used.map(function (d) {
         return '<a href="#days/' + d + '">' + md(d) + " 週" + wd(d) + "</a>";
       }).join("") : "<span>還沒排，是備選</span>") + "</div>" +
+      (s.best && !used.length ? '<p class="sheet-best">適合：' + esc(s.best) + "</p>" : "") +
       igCards(s) + likeBtn(id) + spotLinks(id) + "</div>" +
       '<nav class="sheet-nav">' +
       (prev ? '<a href="#spot/' + prev + '" data-go="' + prev + '" aria-label="上一個景點">' + I("prev") + "</a>" : "<span></span>") +
       "<b>" + (i + 1) + " / " + SPOT_ORDER.length + "</b>" +
       (next ? '<a href="#spot/' + next + '" data-go="' + next + '" aria-label="下一個景點">' + I("next") + "</a>" : "<span></span>") +
       "</nav></div>";
-  }
-
-  // ---------- 備選 ----------
-  function altsView() {
-    var groups = AREA_ORDER.filter(function (aid) {
-      return T.alternatives.some(function (a) { return T.spots[a.spot].area === aid; });
-    });
-    var h = '<p class="muted">下雨、太累或時間多出來的時候用。</p>' +
-      areaPills(groups, function (a) { return 'href="#alts" data-jump="alt-' + a + '"'; });
-    groups.forEach(function (aid) {
-      h += areaHead(aid, "alt-");
-      T.alternatives.filter(function (a) { return T.spots[a.spot].area === aid; }).forEach(function (a) {
-        var s = T.spots[a.spot];
-        h += '<div class="card alt" style="--tone:var(--a-' + aid + ')"><a class="alt-link" href="#spot/' + a.spot + '">' +
-          '<span class="alt-art">' + art(a.spot) + "</span>" +
-          '<span class="alt-body"><b>' + esc(s.name) + "</b>" +
-          '<span class="chips"><span>' + I("clock") + esc(a.length) + "</span>" +
-          "<span>" + (a.rain ? I("umbrella") + "雨天 OK" : I("sun") + "晴天") + "</span></span>" +
-          '<span class="alt-best">' + esc(a.best) + "</span></span></a>" + likeBtn(a.spot) + "</div>";
-      });
-    });
-    return h;
   }
 
   // ---------- 待辦 ----------
@@ -481,7 +474,7 @@
   }
 
   // ---------- 路由＋切頁動畫 ----------
-  var views = { overview: overview, days: daysView, map: mapView, spots: spotsView, alts: altsView, todo: todoView, prep: prepView, beauty: beautyView };
+  var views = { overview: overview, days: daysView, map: mapView, spots: spotsView, todo: todoView, prep: prepView, beauty: beautyView };
   var prevTab = null, prevDay = -1, prevBeauty = null, prevBStep = 0;
   function center(box, el, smooth) {
     if (!box || !el) return;
@@ -496,6 +489,7 @@
     var hash = location.hash.slice(1) || "overview";
     var parts = hash.split("/");
     if (parts[0] === "spots" && T.spots[parts[1]]) { location.replace("#spot/" + parts[1]); return; }   // 舊連結
+    if (parts[0] === "alts") { location.replace("#spots/free"); return; }   // 舊的備選分頁
     if (parts[0] === "spot" && T.spots[parts[1]]) {
       if (pageHash === null) render("spots");           // 直接開景點連結：底下先放景點頁
       else if (sheetId === null) sheetPushed = true;
@@ -534,7 +528,7 @@
     if (pills && keep !== null) pills.scrollLeft = keep;
     if (pills) center(pills, pills.querySelector(".on"), keep !== null);
 
-    if (!(tab === "spots" && parts[1])) window.scrollTo(0, 0);
+    if (!(tab === "spots" && /^area-/.test(parts[1] || ""))) window.scrollTo(0, 0);
     if (window.LIKES) { LIKES.paint(app); paintRank(); }
     prevTab = tab; pageHash = hash;
   }

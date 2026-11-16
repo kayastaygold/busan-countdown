@@ -105,6 +105,23 @@
       '<rect x="42" y="38" width="38" height="28" fill="' + W + '"/><path d="M38 40l23-16 23 16z" fill="' + C + '"/>' +
       '<path d="M56 66V54a5 5 0 0 1 10 0v12z" fill="' + B + '"/><circle cx="61" cy="34" r="2.5" fill="' + Y + '" stroke-width="1.5"/>' + sea(74, B),
 
+    // 樂天世界：童話城堡＋雲霄飛車
+    "lotte-world": bg(LI) + sun(104, 14, 7, Y) +
+      '<path d="M-4 52q14-30 30-6t30-14 30 10 40-14" fill="none" stroke="' + C + '" stroke-width="5"/>' +
+      '<path d="M8 76V44M26 76V46M46 76V38M66 76V40M86 76V44" stroke-width="1.6"/>' +
+      '<rect x="52" y="44" width="40" height="32" fill="' + W + '"/><rect x="47" y="34" width="12" height="42" fill="' + PK + '"/><rect x="85" y="34" width="12" height="42" fill="' + PK + '"/>' +
+      '<path d="M45 34l8-16 8 16zM83 34l8-16 8 16z" fill="' + PU + '"/><rect x="64" y="30" width="16" height="14" fill="' + W + '"/><path d="M61 30l11-16 11 16z" fill="' + HOT + '"/>' +
+      '<path d="M66 76V64a6 6 0 0 1 12 0v12z" fill="' + B + '"/><path d="M53 18v-8l6 3-6 3" fill="' + Y + '" stroke-width="1.5"/>' +
+      '<rect x="-4" y="76" width="128" height="8" fill="' + G + '"/>' + spark(22, 18, 0.7, W),
+
+    // Luge：彎彎的下坡車道＋小車
+    "luge": bg(SK) + sun(20, 14, 8) + sea(26, B) + '<path d="M-4 30h128v54H-4z" fill="' + G + '"/>' +
+      '<path d="M108 30q-60 6-30 20T20 78" fill="none" stroke="' + K + '" stroke-width="13" stroke-linecap="round"/>' +
+      '<path d="M108 30q-60 6-30 20T20 78" fill="none" stroke="' + Y + '" stroke-width="8" stroke-linecap="round"/>' +
+      '<g transform="rotate(-14 58 58)"><rect x="46" y="52" width="24" height="9" rx="4" fill="' + HOT + '"/><circle cx="52" cy="62" r="3" fill="' + K + '"/><circle cx="64" cy="62" r="3" fill="' + K + '"/>' +
+      '<circle cx="57" cy="45" r="5" fill="' + W + '"/><path d="M52 44a5 5 0 0 1 10 0z" fill="' + PU + '"/></g>' +
+      '<path d="M112 10v20M96 6l24 8" stroke-width="1.5"/>' + spark(98, 60, 0.7, W),
+
     // ---- 南浦／影島 ----
     "songdo": bg(SK) + sun(18, 16, 8) + cloud(84, 40) + '<path d="M-4 10l128 22"/>' +
       '<path d="M56 20v10M100 28v6"/><rect x="38" y="30" width="36" height="28" rx="7" fill="' + HOT + '"/><rect x="43" y="35" width="26" height="11" rx="2" fill="' + W + '"/><path d="M56 35v11" stroke-width="1.5"/>' +

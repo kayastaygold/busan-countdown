@@ -160,9 +160,9 @@ main > .card.has-st:first-child { margin-top: 16px; }
 .btn.ig { background: var(--pink); }
 .btn.nv { background: var(--teal); }
 .btn.ig2 { background: var(--lilac); }
-.btn, .bopt, .seg a, .tabs a, .pills a, .daynav a, .like-btn, .picker-row button, #whoami, .tile, .alt, .tl-thumb, .sheet-nav a, .sheet-x { transition: transform .08s ease-out, box-shadow .08s ease-out; touch-action: manipulation; }
+.btn, .bopt, .seg a, .tabs a, .pills a, .daynav a, .like-btn, .picker-row button, #whoami, .tile, .tl-thumb, .sheet-nav a, .sheet-x { transition: transform .08s ease-out, box-shadow .08s ease-out; touch-action: manipulation; }
 .btn:active, .daynav a:active, .like-btn:active, .picker-row button:active, .sheet-nav a:active, .sheet-x:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--ink); }
-.tile:has(.tile-link:active), .alt:has(.alt-link:active) { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--ink); }
+.tile:has(.tile-link:active) { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--ink); }
 .tl-thumb:active { transform: scale(.92); }
 .tabs a:active, .pills a:active, #whoami:active { transform: scale(.94); }
 
@@ -182,7 +182,7 @@ main > .card.has-st:first-child { margin-top: 16px; }
 .arearow b a { display: inline-flex; align-items: center; gap: 4px; color: var(--ink); background: var(--tone); border: 1.5px solid var(--ink); border-radius: 999px; padding: 0 8px 0 5px; font-size: 13px; white-space: nowrap; }
 .arearow b .ic { width: 14px; height: 14px; --ic: #fff; }
 
-/* 景點、備選 */
+/* 景點 */
 .areah { display: inline-flex; align-items: center; gap: 7px; background: var(--tone, var(--yellow)); border: var(--bw) solid var(--ink); border-radius: 13px; box-shadow: 3px 3px 0 var(--ink); padding: 3px 14px 3px 9px; margin: 14px 0 14px; font-size: 18px; font-weight: 900; transform: rotate(-1.5deg); scroll-margin-top: 118px; }
 .areah .ic { width: 22px; height: 22px; --ic: #fff; }
 .areabr { display: block; }
@@ -197,20 +197,11 @@ main > .card.has-st:first-child { margin-top: 16px; }
 .tile-foot { display: flex; align-items: center; justify-content: space-between; gap: 6px; padding: 7px 8px 9px 10px; }
 .tile-sub { font-family: var(--font-display); font-size: 12.5px; letter-spacing: .4px; line-height: 1.5; background: var(--tone, var(--yellow)); border: 1.5px solid var(--ink); border-radius: 999px; padding: 0 8px; white-space: nowrap; }
 /* 小卡上的愛心：只留按鈕和數字 */
-.tile .like, .alt .like { margin: 0; flex: none; }
-.tile .like-who, .alt .like-who { display: none; }
+.tile .like { margin: 0; flex: none; }
+.tile .like-who { display: none; }
 .tile .like-btn { font-size: 14.5px; padding: 1px 10px 1px 7px; min-width: 46px; min-height: 30px; }
 .tile .like-btn .ic { width: 17px; height: 17px; }
 
-/* 備選：小圖＋重點的橫卡 */
-.alt { display: flex; align-items: center; gap: 8px; padding: 10px; scroll-margin-top: 118px; margin-bottom: 14px; }
-.alt-link { flex: 1; min-width: 0; display: flex; align-items: center; gap: 12px; color: var(--ink); }
-.alt-art { flex: none; width: 96px; height: 72px; border: 2px solid var(--ink); border-radius: 11px; overflow: hidden; background: var(--lilac); }
-.alt-body { flex: 1; min-width: 0; display: flex; flex-direction: column; }
-.alt-body b { font-size: 15px; font-weight: 800; line-height: 1.3; }
-.alt-best { font-size: 12.5px; font-weight: 500; color: var(--text-2); line-height: 1.4; }
-.alt .like-btn { flex-direction: column; gap: 0; border-radius: 15px; padding: 6px 9px 3px; min-width: 42px; font-size: 15px; }
-.alt .like-btn .burst { left: 50%; top: 16px; }
 
 /* 單一景點卡片（從下面滑上來） */
 html.sheet-open, html.sheet-open body { overflow: hidden; }
@@ -384,3 +375,16 @@ html.sheet-open, html.sheet-open body { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* 景點頁的篩選、卡片裡的營業時間 */
+.seg.three { grid-template-columns: repeat(3, 1fr); gap: 7px; }
+.seg.three a { font-size: 13px; padding: 7px 4px; gap: 4px; }
+.seg.three a .ic { width: 16px; height: 16px; flex: none; }
+.sheet-card .chips { margin: 8px 0 4px; }
+.sheet-hours { display: flex; gap: 9px; align-items: flex-start; margin: 14px 4px 0 0; padding: 9px 12px; background: var(--lilac); border: 2px solid var(--ink); border-radius: 13px; }
+.sheet-hours > .ic { flex: none; width: 20px; height: 20px; margin-top: 2px; --ic: var(--yellow); }
+.sheet-hours b { display: block; font-size: 12.5px; font-weight: 800; }
+.sheet-hours span { display: block; font-size: 15px; font-weight: 600; line-height: 1.45; }
+.sheet-hours small { display: block; font-size: 11.5px; color: var(--text-2); margin-top: 2px; }
+.sheet-best { margin: 8px 0 0; font-size: 14px; font-weight: 700; }
+.btn.go { background: var(--coral); }

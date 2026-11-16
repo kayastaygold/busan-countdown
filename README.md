@@ -25,5 +25,6 @@
 - `photos/shinsegae-centum.jpg`：[Shinsegye Dept store Centum city.JPG](https://commons.wikimedia.org/wiki/File:Shinsegye_Dept_store_Centum_city.JPG)，Modamoda，CC BY-SA 3.0
 - `photos/taejongdae.jpg`：[Taejongdae in 2018.jpg](https://commons.wikimedia.org/wiki/File:Taejongdae_in_2018.jpg)，Christophe95，CC BY-SA 4.0
 - `photos/yonggungsa.jpg`：[Haedong Yonggungsa Temple, Busan, South Korea.jpg](https://commons.wikimedia.org/wiki/File:Haedong_Yonggungsa_Temple,_Busan,_South_Korea.jpg)，Anna L Martin，CC BY 2.0
+- `photos/lotte-world.jpg`：[Giant Digger, Lotte World Adventure Busan, c. June 2022,.jpg](https://commons.wikimedia.org/wiki/File:Giant_Digger,_Lotte_World_Adventure_Busan,_c._June_2022,.jpg)，Gruturgi，公有領域
 
 另外這幾張是站主另外提供的網路圖片，不是維基共享資源的授權照片，有浮水印的保留原樣並在照片下方標示來源：`photos/blueline.jpg`、`photos/xthesky.jpg`、`photos/dongbaek.jpg`、`photos/spaland.jpg`、`photos/yacht.jpg`、`photos/millak.jpg`、`photos/countdown.jpg`、`photos/jukseong.jpg`、`photos/songdo.jpg`、`photos/arte.jpg`、`photos/jeonpo.jpg`、`photos/gyeongju.jpg`。原作者如果希望移除，請開 issue，會馬上拿掉。

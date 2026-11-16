@@ -319,7 +319,8 @@
       '<button class="sheet-x" data-close aria-label="關閉">✕</button>' +
       '<div class="sheet-in' + (dir ? " " + dir : "") + '">' +
       (s.photo ? '<figure class="sheet-art photo"><img src="' + esc(s.photo.src) + '" alt="' + esc(s.name) + '" width="960" height="640" decoding="async">' +
-        '<figcaption>照片：<a href="' + esc(s.photo.url) + '" target="_blank" rel="noopener">' + esc(s.photo.by) + "</a>・" + esc(s.photo.lic) + "</figcaption></figure>"
+        '<figcaption>照片：' + (s.photo.url ? '<a href="' + esc(s.photo.url) + '" target="_blank" rel="noopener">' + esc(s.photo.by) + "</a>" : esc(s.photo.by)) +
+        (s.photo.lic ? "・" + esc(s.photo.lic) : "") + "</figcaption></figure>"
         : '<div class="sheet-art">' + art(id) + "</div>") +
       '<span class="sheet-area">' + I(AREA_ICON[s.area]) + esc(areaName(s.area)) + "</span>" +
       "<h2>" + esc(s.name) + '</h2><p class="ko">' + esc(s.ko) + "</p>" +

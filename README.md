@@ -15,8 +15,6 @@
 
 `photos/` 裡的照片來自 [Wikimedia Commons](https://commons.wikimedia.org/)，裁成 960×640。作者和授權如下（網站上每張照片下面也有標示）：
 
-- `photos/blueline.jpg`：[Sky Capsule train at Haeundae Blueline Park, Busan.jpg](https://commons.wikimedia.org/wiki/File:Sky_Capsule_train_at_Haeundae_Blueline_Park,_Busan.jpg)，VN.NguyenDucDuy，CC BY-SA 4.0
-- `photos/dongbaek.jpg`：[Nurimaru APEC House 20200522 002.jpg](https://commons.wikimedia.org/wiki/File:Nurimaru_APEC_House_20200522_002.jpg)，Mobius6，CC BY-SA 4.0
 - `photos/gamcheon.jpg`：[Gamcheon Culture Village March 30 2024 7.jpg](https://commons.wikimedia.org/wiki/File:Gamcheon_Culture_Village_March_30_2024_7.jpg)，S h y numis，CC BY 4.0
 - `photos/gwangan.jpg`：[Gwangan Bridge and Gwangalli Beach - Gwangalli2721.jpg](https://commons.wikimedia.org/wiki/File:Gwangan_Bridge_and_Gwangalli_Beach_-_Gwangalli2721.jpg)，lumoplank，CC0
 - `photos/gyeongju.jpg`：[Bulguksa temple entrance gate stairs flower bed and blue sky in Gyeongju South Korea.jpg](https://commons.wikimedia.org/wiki/File:Bulguksa_temple_entrance_gate_stairs_flower_bed_and_blue_sky_in_Gyeongju_South_Korea.jpg)，Basile Morin，CC BY-SA 4.0
@@ -28,7 +26,7 @@
 - `photos/seomyeon.jpg`：[Seomyeon, Busan.jpg](https://commons.wikimedia.org/wiki/File:Seomyeon,_Busan.jpg)，Carey Ciuro，CC BY 2.0
 - `photos/shinsegae-centum.jpg`：[Shinsegye Dept store Centum city.JPG](https://commons.wikimedia.org/wiki/File:Shinsegye_Dept_store_Centum_city.JPG)，Modamoda，CC BY-SA 3.0
 - `photos/songdo.jpg`：[Songdo Cloud Trails Skywalk Songdo Beach Busan (30809005967).jpg](https://commons.wikimedia.org/wiki/File:Songdo_Cloud_Trails_Skywalk_Songdo_Beach_Busan_(30809005967).jpg)，bryan...，CC BY-SA 2.0
-- `photos/spaland.jpg`：[Spaland centunm.jpg](https://commons.wikimedia.org/wiki/File:Spaland_centunm.jpg)，Jaewon911，CC0
 - `photos/taejongdae.jpg`：[Taejongdae in 2018.jpg](https://commons.wikimedia.org/wiki/File:Taejongdae_in_2018.jpg)，Christophe95，CC BY-SA 4.0
-- `photos/xthesky.jpg`：[Haeundae Beach 20200522 005.jpg](https://commons.wikimedia.org/wiki/File:Haeundae_Beach_20200522_005.jpg)，Mobius6，CC BY-SA 4.0
 - `photos/yonggungsa.jpg`：[Haedong Yonggungsa Temple, Busan, South Korea.jpg](https://commons.wikimedia.org/wiki/File:Haedong_Yonggungsa_Temple,_Busan,_South_Korea.jpg)，Anna L Martin，CC BY 2.0
+
+另外這幾張是站主另外提供的網路圖片，不是維基共享資源的授權照片，有浮水印的保留原樣並在照片下方標示來源：`photos/blueline.jpg`、`photos/xthesky.jpg`、`photos/dongbaek.jpg`、`photos/spaland.jpg`、`photos/yacht.jpg`、`photos/millak.jpg`、`photos/countdown.jpg`。原作者如果希望移除，請開 issue，會馬上拿掉。

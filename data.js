@@ -5,7 +5,7 @@
 // ============================================================
 window.TRIP = {
   title: "釜山跨年 2026→2027",
-  updated: "2026-11-15",
+  updated: "2026-11-16",
 
   // 愛心按鈕用的 Firebase 設定（空白 = 不顯示愛心）
   firebase: { projectId: "busan-countdown", apiKey: "AIzaSyBLx2xd9LAudbNWqBOyjXE1-ZHiXt4-MOw" },
@@ -154,7 +154,8 @@ window.TRIP = {
   ],
 
   // 景點介紹：short 是一句話（小卡也會用），desc 是點開後的一小段介紹，facts 是 2～4 個重點。小圖在 art.js，用同一個代號。
-  // photo 是點開後顯示的真實照片（放在 photos/，來自維基共享資源，要保留作者和授權標示）；沒有 photo 的景點顯示手繪圖。
+  // photo 是點開後顯示的真實照片（放在 photos/，960×640）；沒有 photo 的景點顯示手繪圖。
+  // 維基共享資源的照片要保留 by（作者）、lic（授權）、url；自己提供的照片只寫 by（來源）。
   // tag 是韓文 IG 標籤，tagZh 是中文 IG 標籤（中文貼文太少的景點就不放）。
   // ig 可以放特定貼文：[{ url: "...", cover: "圖片網址", title: "..." }]
   spots: {
@@ -169,22 +170,22 @@ window.TRIP = {
       desc: "海雲台站走到海灘路上的一條小巷市場，短短的但很熱鬧。可以邊走邊吃魚糕、辣炒年糕、炸物和餃子，適合當下午點心或簡單吃一餐。",
       facts: ["走路約 5 分", "魚糕、辣炒年糕、炸物"] },
     "blueline": { area: "haeundae", name: "天空膠囊・海岸列車", ko: "해운대블루라인파크", tag: "해운대블루라인파크", tagZh: "天空膠囊列車",
-      photo: {"src": "photos/blueline.jpg", "by": "VN.NguyenDucDuy", "lic": "CC BY-SA 4.0", "url": "https://commons.wikimedia.org/wiki/File:Sky_Capsule_train_at_Haeundae_Blueline_Park,_Busan.jpg"},
+      photo: {"src": "photos/blueline.jpg", "by": "網路圖片"},
       short: "沿著海岸走的觀光小火車",
       desc: "用舊鐵道改成的海岸觀光路線。天空膠囊走尾浦到青沙浦這一段，在高架上慢慢開，一台一組人，約 30 分。海岸列車是面海座位的車廂，從尾浦一路開到松亭。",
       facts: ["天空膠囊每台最多 4 人，6 人訂 2 台", "12/31 的票 12/1 官網開賣", "海岸列車可用 Busan Pass"] },
     "xthesky": { area: "haeundae", name: "Busan X the Sky 展望台", ko: "부산엑스더스카이", tag: "부산엑스더스카이",
-      photo: {"src": "photos/xthesky.jpg", "by": "Mobius6", "lic": "CC BY-SA 4.0", "url": "https://commons.wikimedia.org/wiki/File:Haeundae_Beach_20200522_005.jpg"},
+      photo: {"src": "photos/xthesky.jpg", "by": "網路圖片"},
       short: "海灘邊的高樓展望台",
       desc: "在海雲台 LCT 大樓的最高幾層，是韓國最高的展望台之一。可以從高處看整片海雲台海灘、廣安大橋和市區，傍晚到晚上的景色最好。",
       facts: ["室內，下雨也能去", "Busan Pass 可用"] },
     "dongbaek": { area: "haeundae", name: "冬柏島・迎月路", ko: "동백섬", tag: "동백섬", tagZh: "冬柏島",
-      photo: {"src": "photos/dongbaek.jpg", "by": "Mobius6", "lic": "CC BY-SA 4.0", "url": "https://commons.wikimedia.org/wiki/File:Nurimaru_APEC_House_20200522_002.jpg"},
+      photo: {"src": "photos/dongbaek.jpg", "by": "一起去巴黎 avec Liz"},
       short: "海灘西端的環島步道",
       desc: "海雲台海灘西邊突出去的小島，現在已經跟陸地相連。沿著木棧道繞一圈約 20 到 30 分，途中有燈塔和 APEC 世峰樓，可以遠看廣安大橋和海雲台的高樓。",
       facts: ["可以看廣安大橋", "住處走路 20–25 分"] },
     "spaland": { area: "haeundae", name: "Spa Land 汗蒸幕", ko: "스파랜드 센텀시티", tag: "스파랜드", tagZh: "釜山汗蒸幕",
-      photo: {"src": "photos/spaland.jpg", "by": "Jaewon911", "lic": "公有領域（CC0）", "url": "https://commons.wikimedia.org/wiki/File:Spaland_centunm.jpg"},
+      photo: {"src": "photos/spaland.jpg", "by": "I'm Alice（IG @im_aliceyu）"},
       short: "百貨裡的大型汗蒸幕",
       desc: "新世界 Centum City 百貨裡的溫泉汗蒸幕，有很多種主題汗蒸房、溫泉池和休息區。環境新又乾淨，很適合第一次去汗蒸幕的人，可以待上半天。",
       facts: ["離海雲台地鐵 2 站", "補眠、下雨天都適合", "醫美後 2～3 天不要去", "Busan Pass 可用"] },
@@ -194,6 +195,7 @@ window.TRIP = {
       desc: "新世界 Centum City 曾被金氏世界紀錄認定為世界最大的百貨公司，裡面有免稅店、Spa Land、溜冰場和美食街。對面的樂天百貨可以一起逛。",
       facts: ["新世界對面就是樂天百貨", "Centum City 站", "元旦營業時間要再確認"] },
     "yacht": { area: "haeundae", name: "水營灣夜間煙火遊艇", ko: "수영만요트경기장", tag: "부산요트투어", tagZh: "釜山遊艇",
+      photo: {"src": "photos/yacht.jpg", "by": "Damee"},
       short: "搭遊艇看廣安大橋夜景",
       desc: "從海雲台的水營灣遊艇碼頭出發，開到廣安大橋前面再繞回來，一趟約 1 小時。晚上的場次可以從海上看大橋點燈和市區夜景，有些業者會在船上放小煙火。",
       facts: ["部分場次有小煙火", "可以在 Klook 訂", "Busan Pass 限 Diamond Bay、The Yacht、Y Holic、Yacht Holic"] },
@@ -204,10 +206,12 @@ window.TRIP = {
       desc: "彎月形的海灘，正前方就是廣安大橋。白天可以在海邊咖啡廳坐著看海，晚上大橋點燈後最漂亮，海岸路整排都是餐廳和酒吧。",
       facts: ["晚上大橋會點燈", "海邊很多咖啡廳和酒吧", "週六無人機秀，冬天有沒有要再確認"] },
     "millak": { area: "gwangan", name: "民樂水產市場", ko: "민락회타운", tag: "민락회센터",
+      photo: {"src": "photos/millak.jpg", "by": "網路圖片"},
       short: "邊吃生魚片邊看大橋",
       desc: "廣安里海灘東側的生魚片市場大樓。在一樓攤位挑好活魚和海鮮，付處理費後到樓上的餐廳坐著吃，窗邊座位可以看到廣安大橋。",
       facts: ["一樓挑海鮮，樓上代客料理", "在廣安里海灘東邊"] },
     "countdown": { area: "gwangan", name: "廣安里跨年無人機秀", ko: "광안리 카운트다운", tag: "광안리카운트다운", tagZh: "釜山跨年",
+      photo: {"src": "photos/countdown.jpg", "by": "網路圖片"},
       short: "釜山最大的跨年活動，免費",
       desc: "每年 12/31 晚上在廣安里海灘舉行。無人機在大橋前排出倒數時鐘和新年圖案，搭配大橋的燈光秀。人非常多，要提早到，結束後散場也要花不少時間。",
       facts: ["去年 2,500 架無人機排成時鐘倒數", "現場約 7 萬人", "今年公告約 12 月中出來", "沒有煙火，天氣差可能取消"] },

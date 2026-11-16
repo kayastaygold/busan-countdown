@@ -17,16 +17,13 @@
 
 - `photos/gamcheon.jpg`：[Gamcheon Culture Village March 30 2024 7.jpg](https://commons.wikimedia.org/wiki/File:Gamcheon_Culture_Village_March_30_2024_7.jpg)，S h y numis，CC BY 4.0
 - `photos/gwangan.jpg`：[Gwangan Bridge and Gwangalli Beach - Gwangalli2721.jpg](https://commons.wikimedia.org/wiki/File:Gwangan_Bridge_and_Gwangalli_Beach_-_Gwangalli2721.jpg)，lumoplank，CC0
-- `photos/gyeongju.jpg`：[Bulguksa temple entrance gate stairs flower bed and blue sky in Gyeongju South Korea.jpg](https://commons.wikimedia.org/wiki/File:Bulguksa_temple_entrance_gate_stairs_flower_bed_and_blue_sky_in_Gyeongju_South_Korea.jpg)，Basile Morin，CC BY-SA 4.0
 - `photos/haeundae-beach.jpg`：[Haeundae Beach NightView.jpg](https://commons.wikimedia.org/wiki/File:Haeundae_Beach_NightView.jpg)，Haeundae District Municipality，CC BY 4.0
 - `photos/haeundae-market.jpg`：[Korea-Busan-Haeundae Market-Bokkeumbap-Fried rice-01.jpg](https://commons.wikimedia.org/wiki/File:Korea-Busan-Haeundae_Market-Bokkeumbap-Fried_rice-01.jpg)，Junho Jung，CC BY-SA 3.0
 - `photos/huinnyeoul.jpg`：[흰여울마을.jpg](https://commons.wikimedia.org/wiki/File:%ED%9D%B0%EC%97%AC%EC%9A%B8%EB%A7%88%EC%9D%84.jpg)，Appleysj，CC BY-SA 4.0
 - `photos/jagalchi.jpg`：[Jagalchi Market 20200523 019.jpg](https://commons.wikimedia.org/wiki/File:Jagalchi_Market_20200523_019.jpg)，Mobius6，CC BY-SA 4.0
-- `photos/jeonpo.jpg`：[Ardea cinerea - Grey heron - in a pond of Busan Citizens Park with blue sky in Busan city South Korea.jpg](https://commons.wikimedia.org/wiki/File:Ardea_cinerea_-_Grey_heron_-_in_a_pond_of_Busan_Citizens_Park_with_blue_sky_in_Busan_city_South_Korea.jpg)，Basile Morin，CC BY-SA 4.0
 - `photos/seomyeon.jpg`：[Seomyeon, Busan.jpg](https://commons.wikimedia.org/wiki/File:Seomyeon,_Busan.jpg)，Carey Ciuro，CC BY 2.0
 - `photos/shinsegae-centum.jpg`：[Shinsegye Dept store Centum city.JPG](https://commons.wikimedia.org/wiki/File:Shinsegye_Dept_store_Centum_city.JPG)，Modamoda，CC BY-SA 3.0
-- `photos/songdo.jpg`：[Songdo Cloud Trails Skywalk Songdo Beach Busan (30809005967).jpg](https://commons.wikimedia.org/wiki/File:Songdo_Cloud_Trails_Skywalk_Songdo_Beach_Busan_(30809005967).jpg)，bryan...，CC BY-SA 2.0
 - `photos/taejongdae.jpg`：[Taejongdae in 2018.jpg](https://commons.wikimedia.org/wiki/File:Taejongdae_in_2018.jpg)，Christophe95，CC BY-SA 4.0
 - `photos/yonggungsa.jpg`：[Haedong Yonggungsa Temple, Busan, South Korea.jpg](https://commons.wikimedia.org/wiki/File:Haedong_Yonggungsa_Temple,_Busan,_South_Korea.jpg)，Anna L Martin，CC BY 2.0
 
-另外這幾張是站主另外提供的網路圖片，不是維基共享資源的授權照片，有浮水印的保留原樣並在照片下方標示來源：`photos/blueline.jpg`、`photos/xthesky.jpg`、`photos/dongbaek.jpg`、`photos/spaland.jpg`、`photos/yacht.jpg`、`photos/millak.jpg`、`photos/countdown.jpg`。原作者如果希望移除，請開 issue，會馬上拿掉。
+另外這幾張是站主另外提供的網路圖片，不是維基共享資源的授權照片，有浮水印的保留原樣並在照片下方標示來源：`photos/blueline.jpg`、`photos/xthesky.jpg`、`photos/dongbaek.jpg`、`photos/spaland.jpg`、`photos/yacht.jpg`、`photos/millak.jpg`、`photos/countdown.jpg`、`photos/jukseong.jpg`、`photos/songdo.jpg`、`photos/arte.jpg`、`photos/jeonpo.jpg`、`photos/gyeongju.jpg`。原作者如果希望移除，請開 issue，會馬上拿掉。

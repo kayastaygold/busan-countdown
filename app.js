@@ -375,7 +375,7 @@
     });
     return '<section class="card has-st">' + H("q", "要大家決定的", "pink") + T.decide.map(todoRow).join("") + "</section>" +
       '<section class="card has-st">' + H("ticket", "要訂、要確認的", "yellow") + book.map(todoRow).join("") + "</section>" +
-      '<p class="muted small center">打勾狀態由 Kaya 這邊更新。</p>';
+      '<p class="muted small center">打勾狀態由林這邊更新。</p>';
   }
 
   // ---------- 行前注意事項 ----------
@@ -485,15 +485,15 @@
     items.sort(function (a, b) { return order.indexOf(a.area) - order.indexOf(b.area); });
     function aname(id) { var a = C.areas.filter(function (x) { return x[0] === id; })[0]; return a ? a[1] : id; }
     function count(vv, aa) { return C.items.filter(function (c) { return c.verdict === vv && (aa === "all" || c.area === aa); }).length; }
-    var h = '<nav class="pills small cl-v">' + [["ok", "可參考"], ["no", "網路負評多"]].map(function (x) {
-      return '<a href="#beauty/clinics/' + x[0] + "/" + area + '" class="' + (v === x[0] ? "on" : "") + '" style="--tone:var(--' + (x[0] === "ok" ? "yellow" : "coral") + ')">' + x[1] + " " + count(x[0], area) + "</a>";
+    var h = '<nav class="pills small cl-v">' + [["ok", "可參考", "yellow"], ["mix", "評價兩極", "sky"], ["no", "負評多", "coral"]].map(function (x) {
+      return '<a href="#beauty/clinics/' + x[0] + "/" + area + '" class="' + (v === x[0] ? "on" : "") + '" style="--tone:var(--' + x[2] + ')">' + x[1] + " " + count(x[0], area) + "</a>";
     }).join("") + "</nav>";
     h += '<nav class="pills small cl-a">' + [["all", "全部區域"]].concat(C.areas).map(function (x) {
       var n = count(v, x[0]); if (!n && x[0] !== "all") return "";
       return '<a href="#beauty/clinics/' + v + "/" + x[0] + '" class="' + (area === x[0] ? "on" : "") + '">' + x[1] + "</a>";
     }).join("") + "</nav>";
-    if (v === "ok") {
-      h += '<p class="muted small">住處在海雲台站，海雲台・Centum 最近；西面地鐵約 30 分；南浦約 50 分。1/2 是週六，卡片上有寫週六開到幾點。</p>';
+    if (v !== "no") {
+      h += v === "mix" ? '<p class="muted small">原本筆記列不推薦，但後來的貼文和在地人推薦名單有推的。優缺點都列出來，自己判斷。</p>' : '<p class="muted small">住處在海雲台站，海雲台・Centum 最近；西面地鐵約 30 分；南浦約 50 分。1/2 是週六，卡片上有寫週六開到幾點。</p>';
       h += items.map(function (c) {
         var q = c.ko || c.name + " 부산";
         return '<section class="card clinic" style="--tone:var(--a-' + ({ haeundae: "haeundae", seomyeon: "seomyeon", nampo: "nampo" }[c.area] || "gijang") + ')">' +
@@ -519,7 +519,7 @@
       "<li>$ 是網路上的價格印象，實際以診所報價為準，諮詢時先講預算上限。</li>" +
       "<li>旅遊網站的推薦有些是合作文，看的時候打個折。</li>" +
       "<li>多數週日休，1/1 元旦也大多休。熱門診所建議提前 1～2 週約。</li></ul>" +
-      '<p class="muted small">資料來源：Kaya 的 Threads 筆記、' + C.source.map(function (l) {
+      '<p class="muted small">資料來源：林整理的 Threads 筆記、' + C.source.map(function (l) {
         return '<a href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.label) + "</a>";
       }).join("、") + "</p></section>";
     return h;

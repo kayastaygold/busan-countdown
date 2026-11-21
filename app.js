@@ -299,15 +299,15 @@
       '<span class="tile-name">' + esc(s.name) + "</span></a>" +
       '<div class="tile-foot"><span class="tile-sub">' + (used.length ? used.map(md).join("・") : "備選") + "</span>" + likeBtn(k) + "</div></div>";
   }
-  var FILTERS = [["", "全部", "star"], ["free", "還沒排的", "dice"], ["rain", "下雨也能去", "umbrella"]];
+  var FILTERS = [["", "全部", "star"], ["rain", "下雨也能去", "umbrella"]];
   function spotsView(arg) {
-    var f = arg === "rain" || arg === "free" ? arg : "";
-    function keep(k) { return f === "rain" ? T.spots[k].rain : f === "free" ? !usedOn(k).length : true; }
+    var f = arg === "rain" ? arg : "";
+    function keep(k) { return f === "rain" ? T.spots[k].rain : true; }
     var areas = AREA_ORDER.filter(function (aid) { return SPOT_ORDER.some(function (k) { return T.spots[k].area === aid && keep(k); }); });
-    var h = '<nav class="seg three">' + FILTERS.map(function (x) {
+    var h = '<nav class="seg">' + FILTERS.map(function (x) {
       return '<a href="#spots' + (x[0] ? "/" + x[0] : "") + '" class="' + (x[0] === f ? "on" : "") + '">' + I(x[2]) + x[1] + "</a>";
     }).join("") + "</nav>";
-    if (f) h += '<p class="muted small">' + (f === "rain" ? "室內或有遮蔽，下雨天可以改去這些。" : "還沒排進行程的，太累或時間多出來的時候用。") + "</p>";
+    if (f) h += '<p class="muted small">' + "室內或有遮蔽，下雨天可以改去這些。" + "</p>";
     h += areaPills(areas, function (a) { return 'href="#spots/area-' + a + '" data-jump="area-' + a + '"'; });
     areas.forEach(function (aid) {
       h += areaHead(aid, "area-") + '<div class="tiles">' +
@@ -541,7 +541,7 @@
     var hash = location.hash.slice(1) || "overview";
     var parts = hash.split("/");
     if (parts[0] === "spots" && T.spots[parts[1]]) { location.replace("#spot/" + parts[1]); return; }   // 舊連結
-    if (parts[0] === "alts") { location.replace("#spots/free"); return; }   // 舊的備選分頁
+    if (parts[0] === "alts" || (parts[0] === "spots" && parts[1] === "free")) { location.replace("#spots"); return; }   // 舊的備選分頁
     if (parts[0] === "spot" && T.spots[parts[1]]) {
       if (pageHash === null) render("spots");           // 直接開景點連結：底下先放景點頁
       else if (sheetId === null) sheetPushed = true;

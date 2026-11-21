@@ -437,8 +437,9 @@
       '<p class="bnames"><span>台灣叫：' + esc(it.tw) + '</span><span>韓國叫：<b lang="ko">' + esc(it.kr) + "</b>（" + esc(it.krRead) + "）</span></p></article>";
   }
   function beautyView(mode, parts) {
-    var b = T.beauty, sel = mode === "pick" ? parts.slice(2, 5) : [], step = sel.length, all = mode === "all";
-    var h = '<nav class="seg"><a href="#beauty" class="' + (all ? "" : "on") + '">' + I("dice") + '一步一步選</a><a href="#beauty/all" class="' + (all ? "on" : "") + '">' + I("star") + "直接看全部</a></nav>";
+    var b = T.beauty, sel = mode === "pick" ? parts.slice(2, 5) : [], step = sel.length, all = mode === "all", cl = mode === "clinics";
+    var h = '<nav class="seg three"><a href="#beauty" class="' + (all || cl ? "" : "on") + '">' + I("dice") + '一步步選</a><a href="#beauty/all" class="' + (all ? "on" : "") + '">' + I("star") + '全部療程</a><a href="#beauty/clinics" class="' + (cl ? "on" : "") + '">' + I("pin") + "找診所</a></nav>";
+    if (cl) return h + clinicsView(parts[2] || "ok", parts[3] || "all");
 
     if (all) {
       h += '<section class="card has-st">' + H("sparkle", "全部療程比較", "lilac") + '<div class="bscroll"><table class="btbl"><thead><tr><th>療程</th><th>台灣叫法</th><th>韓國叫法</th><th>台灣價</th><th>韓國價</th></tr></thead><tbody>' +
@@ -473,6 +474,54 @@
       (b.source ? '<p class="muted small">資料來源：' + b.source.map(function (l) {
         return '<a href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.label) + "</a>";
       }).join("、") + "</p>" : "") + "</section>";
+    return h;
+  }
+
+  // ---------- 醫美診所：依評價、區域篩選 ----------
+  function clinicsView(v, area) {
+    var C = T.clinics; if (!C) return "";
+    var items = C.items.filter(function (c) { return c.verdict === v && (area === "all" || c.area === area); });
+    var order = C.areas.map(function (a) { return a[0]; });
+    items.sort(function (a, b) { return order.indexOf(a.area) - order.indexOf(b.area); });
+    function aname(id) { var a = C.areas.filter(function (x) { return x[0] === id; })[0]; return a ? a[1] : id; }
+    function count(vv, aa) { return C.items.filter(function (c) { return c.verdict === vv && (aa === "all" || c.area === aa); }).length; }
+    var h = '<nav class="pills small cl-v">' + [["ok", "可參考"], ["no", "網路負評多"]].map(function (x) {
+      return '<a href="#beauty/clinics/' + x[0] + "/" + area + '" class="' + (v === x[0] ? "on" : "") + '" style="--tone:var(--' + (x[0] === "ok" ? "yellow" : "coral") + ')">' + x[1] + " " + count(x[0], area) + "</a>";
+    }).join("") + "</nav>";
+    h += '<nav class="pills small cl-a">' + [["all", "全部區域"]].concat(C.areas).map(function (x) {
+      var n = count(v, x[0]); if (!n && x[0] !== "all") return "";
+      return '<a href="#beauty/clinics/' + v + "/" + x[0] + '" class="' + (area === x[0] ? "on" : "") + '">' + x[1] + "</a>";
+    }).join("") + "</nav>";
+    if (v === "ok") {
+      h += '<p class="muted small">住處在海雲台站，海雲台・Centum 最近；西面地鐵約 30 分；南浦約 50 分。1/2 是週六，卡片上有寫週六開到幾點。</p>';
+      h += items.map(function (c) {
+        var q = c.ko || c.name + " 부산";
+        return '<section class="card clinic" style="--tone:var(--a-' + ({ haeundae: "haeundae", seomyeon: "seomyeon", nampo: "nampo" }[c.area] || "gijang") + ')">' +
+          '<div class="cl-head"><h3>' + esc(c.name) + "</h3>" + (c.price ? '<span class="cl-price" title="價格印象">' + "$$$".slice(0, c.price) + '<i>' + "$$$".slice(c.price) + "</i></span>" : "") + "</div>" +
+          (c.ko ? '<p class="ko" lang="ko">' + esc(c.ko) + "</p>" : "") +
+          '<p class="cl-where">' + I("pin") + "<span><b>" + esc(aname(c.area)) + "</b>" + (c.where ? "・" + esc(c.where) : "") + "</span></p>" +
+          (c.tags && c.tags.length ? '<div class="chips">' + c.tags.map(function (t) { return "<span>" + esc(t) + "</span>"; }).join("") + "</div>" : "") +
+          (c.pros.length ? '<ul class="cl-pros">' + c.pros.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") + "</ul>" : "") +
+          (c.cons.length ? '<ul class="cl-cons">' + c.cons.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") + "</ul>" : "") +
+          (c.priceNote ? '<p class="cl-note">' + I("won") + "<span>" + esc(c.priceNote) + "</span></p>" : "") +
+          (c.hours || c.sat ? '<p class="cl-note">' + I("clock") + "<span>" + (c.hours ? esc(c.hours) : "") + (c.sat ? (c.hours ? "；" : "") + "<b>週六 " + esc(c.sat) + "</b>" : "") + "，週日休</span></p>" : "") +
+          '<div class="links"><a class="btn nv" href="' + naver(q) + '" target="_blank" rel="noopener">' + I("pin") + "Naver 地圖</a></div></section>";
+      }).join("");
+    } else {
+      h += '<p class="muted small">Threads、Dcard 上負評比較多的，先避開。都是網友說法，不一定每個人都遇到。</p>' +
+        '<section class="card"><ul class="cl-no">' + items.map(function (c) {
+          return "<li><b>" + esc(c.name) + "</b><span>" + esc(aname(c.area)) + "</span><p>" + esc(c.why) + "</p></li>";
+        }).join("") + "</ul></section>";
+    }
+    if (!items.length) h += '<p class="muted center">這一區沒有，換個區域看看。</p>';
+    h += '<section class="card has-st beauty">' + H("warn", "先知道", "yellow") + "<ul>" +
+      "<li>評價整理自 Threads 上的網友心得和旅遊網站，不是我們自己去過的結果。</li>" +
+      "<li>$ 是網路上的價格印象，實際以診所報價為準，諮詢時先講預算上限。</li>" +
+      "<li>旅遊網站的推薦有些是合作文，看的時候打個折。</li>" +
+      "<li>多數週日休，1/1 元旦也大多休。熱門診所建議提前 1～2 週約。</li></ul>" +
+      '<p class="muted small">資料來源：Kaya 的 Threads 筆記、' + C.source.map(function (l) {
+        return '<a href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.label) + "</a>";
+      }).join("、") + "</p></section>";
     return h;
   }
 

@@ -414,3 +414,29 @@ html.sheet-open, html.sheet-open body { overflow: hidden; }
 .pk-add input { flex: 1; min-width: 0; font: inherit; font-size: 16px; padding: 6px 12px; border: 2.5px solid var(--ink); border-radius: 999px; background: #fff; color: var(--ink); }
 .pk-add .btn { font-size: 15px; padding: 5px 14px; }
 @media (prefers-reduced-motion: reduce) { .pk-bar i, .pk-box { transition: none; } }
+
+/* 醫美診所 */
+.cl-v, .cl-a { margin-bottom: 8px; }
+.cl-a a { background: #fff; }
+.cl-a a.on { background: var(--yellow); }
+.clinic { padding: 14px 14px 12px; border-left-width: 8px; border-left-color: var(--ink); box-shadow: var(--shadow), inset 6px 0 0 var(--tone); }
+.cl-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.cl-head h3 { font-size: 17px; font-weight: 900; line-height: 1.3; }
+.cl-price { flex: none; font-family: var(--font-display); font-size: 17px; letter-spacing: 1px; background: var(--yellow); border: 2px solid var(--ink); border-radius: 999px; padding: 0 8px; }
+.cl-price i { font-style: normal; opacity: .25; }
+.clinic .ko { font-size: 12px; color: var(--text-2); margin: 1px 0 0; }
+.cl-where { display: flex; align-items: flex-start; gap: 4px; font-size: 13.5px; margin: 8px 0 2px; line-height: 1.45; }
+.cl-where .ic, .cl-note .ic { flex: none; width: 16px; height: 16px; margin-top: 2px; --ic: var(--pink); }
+.cl-pros, .cl-cons { list-style: none; padding: 0; margin: 6px 0 0; font-size: 14px; }
+.cl-pros li, .cl-cons li { position: relative; padding: 2px 0 2px 22px; line-height: 1.45; }
+.cl-pros li::before { content: "👍"; position: absolute; left: 0; font-size: 13px; }
+.cl-cons li::before { content: "⚠️"; position: absolute; left: 0; font-size: 13px; }
+.cl-note { display: flex; gap: 5px; font-size: 13px; color: var(--text-2); margin: 6px 0 0; line-height: 1.45; }
+.cl-note b { color: var(--ink); }
+.clinic .links { margin-top: 10px; }
+.cl-no { list-style: none; padding: 0; margin: 0; }
+.cl-no li { display: grid; grid-template-columns: 1fr auto; gap: 0 8px; padding: 8px 0; border-bottom: 1.5px dashed rgba(22, 19, 15, .18); }
+.cl-no li:last-child { border-bottom: 0; }
+.cl-no b { font-size: 15px; }
+.cl-no span { font-size: 12px; color: var(--text-2); align-self: center; }
+.cl-no p { grid-column: 1 / -1; margin: 2px 0 0; font-size: 13.5px; color: var(--text-2); }

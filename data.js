@@ -5,7 +5,7 @@
 // ============================================================
 window.TRIP = {
   title: "釜山跨年 2026→2027",
-  updated: "2026-11-16",
+  updated: "2026-11-22",
 
   // 愛心按鈕用的 Firebase 設定（空白 = 不顯示愛心）
   firebase: { projectId: "busan-countdown", apiKey: "AIzaSyBLx2xd9LAudbNWqBOyjXE1-ZHiXt4-MOw" },
@@ -453,6 +453,81 @@ window.TRIP = {
   // goal：lift 輪廓拉提、skin 膚質改善。rec：none 不用恢復期、days 會紅腫幾天。
   // last：weeks 幾週、months 幾個月、half 半年以上。now：true = 做完當天就看得出來（適合 12/31）。
   // kr 是韓國價（萬韓元），tw 是台灣價（新台幣）。都是網路行情的概略區間，還沒逐家查證。
+  // 醫美診所：整理自 Kaya 在 Threads 上爬的筆記，加上 Creatrip、韓國診所資料站（modoodoc）。評價都是網路說法，僅供參考。
+  // verdict：ok 可參考、no 網路負評多。area：haeundae 海雲台・Centum、seomyeon 西面、nampo 南浦、other 其他、unknown 待確認。
+  // price：1 便宜、2 中等、3 偏貴（網路印象，不是報價）。sat：週六營業時間（1/2 是週六）。
+  clinics: {
+    areas: [["haeundae", "海雲台・Centum"], ["seomyeon", "西面"], ["nampo", "南浦"], ["other", "其他區"], ["unknown", "位置待確認"]],
+    items: [
+      { id: "grays", name: "格雷斯皮膚科 Gray's", ko: "그레이스피부과", area: "haeundae", where: "中洞站 6 號出口，離住處 1 站", verdict: "ok", price: 2,
+        tags: ["皮膚專科醫師", "中文協調員"], pros: ["皮膚專科醫師（紅標）一對一", "網路上提到的人多，印象不錯", "術後可以用 Line 追蹤"], cons: ["討論文不算多"],
+        hours: "一三四 10–19、二五 10–20", sat: "10–15" },
+      { id: "midam", name: "Midam 美談", ko: "미담의원", area: "haeundae", where: "Centum 센텀코아大樓 2 樓", verdict: "ok", price: 2,
+        tags: [], pros: ["好評文多，幾篇 Threads 都把它列進最後名單"], cons: ["有人說訊息回很慢", "可能要自己卸妝"] },
+      { id: "centumbb", name: "Centum BB", ko: "센텀비비의원", area: "unknown", where: "名字看起來在 Centum，位置待確認", verdict: "ok", price: 2,
+        tags: [], pros: ["院長感覺很用心", "目前沒看到負評"], cons: [] },
+      { id: "elblanc", name: "ELBLANC", ko: "엘블랑의원", area: "seomyeon", where: "西面站 7 號出口", verdict: "ok", price: 3,
+        tags: ["院長親自", "中文翻譯", "會幫卸妝", "全預約制"], pros: ["一天只收 5～8 人，從諮詢到卸妝都是院長", "好評很多，Threads 上很紅"], cons: ["大家覺得偏貴", "週三也休息"],
+        hours: "平日 10:30–19:30", sat: "10:30–16:30" },
+      { id: "kimyangje", name: "美麗世界金陽濟皮膚科", ko: "고운세상김양제장봉석피부과", area: "seomyeon", where: "西面站 2 號出口", verdict: "ok", price: 2,
+        tags: ["皮膚專科醫師", "中文翻譯"], pros: ["40 年老牌、皮膚專科（紅標），整體妥當", "有台灣籍職員"], cons: ["沒有玻尿酸類", "可能要等很久，有點流水線感"],
+        hours: "平日 09:30–19:00（午休 13–14:30）", sat: "09:30–15:30", priceNote: "Creatrip 方案：美版電波 600 發＋V-Ro＋美白雷射，不到 NT$70,000" },
+      { id: "nell", name: "Nell Clinic", ko: "넬의원", area: "seomyeon", where: "西面（서면로 60）", verdict: "ok", price: 3,
+        tags: ["一人院長"], pros: ["首爾朋友推薦", "院長一人看診，回答專業、有尊榮感"], cons: ["價格很貴"] },
+      { id: "fillstox", name: "FILLSTOX", ko: "필스톡스의원", area: "seomyeon", where: "西面（중앙대로 698）", verdict: "ok", price: 1,
+        tags: [], pros: ["價格很划算"], cons: ["討論度不高"] },
+      { id: "design", name: "DESIGN 整形外科", ko: "디자인성형외과", area: "seomyeon", where: "西面站 9 號出口", verdict: "ok", price: 2,
+        tags: ["中文翻譯"], pros: ["以玻尿酸、注射出名，也做眼袋等手術"], cons: ["不在你的清單裡，是我另外找到的，評價還沒看到台灣人心得"],
+        hours: "平日 10–19", sat: "10–17" },
+      { id: "vands", name: "VANDS 西面店", area: "seomyeon", where: "西面", verdict: "ok", price: 1,
+        tags: [], pros: ["觀光客常去，價格親民", "好幾篇 Threads 都在問它和 JRYN"], cons: ["不在你的清單裡，詳細評價還沒查到"] },
+      { id: "shes", name: "SHE'S 整形外科", ko: "쉬즈성형외과의원", area: "nampo", where: "南浦站 3 號出口，一整棟", verdict: "ok", price: 2,
+        tags: ["院長親自", "中文翻譯"], pros: ["很多人推，院長親自操作", "線上諮詢回得快"], cons: ["晚上沒開", "有人說沒有想做的項目"],
+        hours: "平日 09:30–19:30", sat: "09:30–17:30" },
+      { id: "first", name: "The First 皮膚科", ko: "더퍼스트피부과의원", area: "other", where: "大淵店：慶星大・釜慶大站 6 號出口", verdict: "ok", price: 2,
+        tags: ["皮膚專科醫師", "中文翻譯"], pros: ["醫師都是皮膚專科（紅標）", "會幫卸妝，說預算不會硬推"], cons: ["評價好壞參半", "另有一家本院據說比較便宜，位置還沒確認"],
+        hours: "平日 10–19（午休 14–15）", sat: "09–14", priceNote: "Creatrip 方案：十蓓電波 600 發 ₩115 萬、麗珠蘭 2cc＋水光 2cc ₩53 萬、鳳凰電波 900 發 ₩345 萬" },
+      { id: "mimisome", name: "MIMISOME", area: "other", where: "德川站（北區），離海雲台很遠", verdict: "ok", price: 2,
+        tags: [], pros: ["有好評"], cons: ["討論度不高", "交通不方便"] },
+      { id: "centrumel", name: "CentrumEL", ko: "", area: "unknown", where: "位置待確認", verdict: "ok", price: 3,
+        tags: [], pros: ["沒看到壞評價", "專攻問題肌"], cons: ["價格偏高"] },
+      { id: "rezero", name: "Rezero", ko: "리제로의원", area: "unknown", where: "位置待確認", verdict: "ok", price: null,
+        tags: [], pros: ["有幾篇說院長細心的好文"], cons: ["資料少"] },
+      { id: "theface", name: "The Face", ko: "더페이스의원", area: "unknown", where: "位置待確認，一整棟", verdict: "ok", price: null,
+        tags: [], pros: [], cons: ["找不到任何評價"] },
+      { id: "leeds", name: "麗茲 Leeds", ko: "", area: "unknown", where: "位置待確認", verdict: "ok", price: null,
+        tags: [], pros: [], cons: ["沒什麼評價"] },
+      { id: "aruda", name: "Aruda 皮膚科", ko: "아루다의원", area: "unknown", where: "位置待確認", verdict: "ok", price: null,
+        tags: ["一對一", "醫美地陪推薦"], pros: ["一對一看診", "醫美地陪會推"], cons: [] },
+      { id: "tnt", name: "TnT", ko: "", area: "unknown", where: "位置待確認", verdict: "ok", price: null,
+        tags: ["醫美地陪推薦"], pros: ["打針感覺很專業", "醫美地陪會推"], cons: [] },
+
+      { id: "jryn", name: "JRYN 珍妍", area: "seomyeon", verdict: "no", why: "負評很多；但規模大、設備多，也有人推" },
+      { id: "ppeum", name: "麗芬聚 Ppeum", area: "seomyeon", verdict: "no", why: "負評多" },
+      { id: "renovo", name: "Renovo", area: "unknown", verdict: "no", why: "負評文多" },
+      { id: "bonsi", name: "本思", area: "unknown", verdict: "no", why: "負評多" },
+      { id: "banobagi", name: "佰諾佰琪 Banobagi", area: "seomyeon", verdict: "no", why: "好壞參半" },
+      { id: "ollim", name: "The Ollim 奧琳提拉", area: "seomyeon", verdict: "no", why: "負評多、要等很久，官方帳號回很慢" },
+      { id: "wannabe", name: "Wannabe", area: "unknown", verdict: "no", why: "負評多、等很久；但有韓國朋友推" },
+      { id: "celita", name: "Celita", area: "unknown", verdict: "no", why: "負評太多" },
+      { id: "evers", name: "Dr. Evers", area: "unknown", verdict: "no", why: "有幾篇負評說體驗不好、會推銷" },
+      { id: "lizon", name: "Lizon", area: "unknown", verdict: "no", why: "有人說是流水線，跟宣傳不同" },
+      { id: "dday", name: "dday", area: "nampo", verdict: "no", why: "等很久，負評很多" },
+      { id: "genius", name: "Genius", area: "unknown", verdict: "no", why: "有人懷疑對不懂韓文的客人不友善" },
+      { id: "daybeau", name: "DayBeau 西面店", area: "seomyeon", verdict: "no", why: "負評文語氣都很激動" },
+      { id: "lisse", name: "Lissé 麗潔", area: "seomyeon", verdict: "no", why: "負評多" },
+      { id: "newline", name: "New Line", area: "unknown", verdict: "no", why: "負評文語氣都很激動" },
+      { id: "floria", name: "Floria", area: "seomyeon", verdict: "no", why: "很趕，沒看到什麼好評" },
+      { id: "tune", name: "Tune 圖恩", area: "unknown", verdict: "no", why: "有客人和店家起糾紛的貼文" },
+      { id: "tones", name: "Tone's", area: "unknown", verdict: "no", why: "負評文多" }
+    ],
+    source: [
+      { label: "Creatrip 釜山醫美 12 間", url: "https://creatrip.com/zh-TW/blog/14949" },
+      { label: "Bella 釜山醫美 6 間", url: "https://www.bella.tw/articles/travel&foodies/60930/busan-aesthetic-clinics-chinese-service-guide-2026" },
+      { label: "modoodoc", url: "https://www.modoodoc.com/" }
+    ]
+  },
+
   beauty: {
     status: "這一頁還是草稿，內容確認中",
     won: 220,   // ₩10,000 大約換多少新台幣（概算）

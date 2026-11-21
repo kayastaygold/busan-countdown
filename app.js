@@ -425,13 +425,19 @@
     var o = BQ[i].opts.filter(function (x) { return x[0] === v; })[0];
     return o ? o[1] : BQ[i].skip;
   }
+  function bDoses(it) {
+    if (!it.doses) return "";
+    return '<div class="bdose"><b>' + esc(it.doseLabel || "劑量") + "怎麼選</b><ul>" + it.doses.map(function (d) {
+      return "<li><span>" + esc(d[0]) + "</span>" + esc(d[1]) + "</li>";
+    }).join("") + "</ul>" + (it.tip ? '<p class="btip">' + esc(it.tip) + "</p>" : "") + "</div>";
+  }
   function bCard(it) {
     return '<article class="card bcard"><h3>' + esc(it.name) + "</h3>" +
       '<p class="btags">' + (it.now ? '<span class="tag now">' + I("bolt") + "當天有感</span>" : '<span class="tag">效果慢慢出來</span>') +
       (it.now && it.rec === "none" ? '<span class="tag d31">適合 12/31</span>' : "") +
       (it.rec === "days" ? '<span class="tag warn">有恢復期</span>' : "") + "</p>" +
       "<p>" + esc(it.what) + "</p>" +
-      '<dl class="bdl"><dt>恢復期</dt><dd>' + esc(it.recText) + "</dd><dt>維持</dt><dd>" + esc(it.lastText) + "</dd><dt>劑量</dt><dd>" + esc(it.dose) + "</dd></dl>" +
+      '<dl class="bdl"><dt>恢復期</dt><dd>' + esc(it.recText) + "</dd><dt>維持</dt><dd>" + esc(it.lastText) + "</dd><dt>劑量</dt><dd>" + esc(it.dose) + "</dd></dl>" + bDoses(it) +
       '<div class="bprice"><div><small>韓國</small><b>' + krPrice(it) + "</b><span>" + krInTw(it) + "</span></div>" +
       "<div><small>台灣</small><b>" + twPrice(it) + "</b></div></div>" +
       '<p class="bnames"><span>台灣叫：' + esc(it.tw) + '</span><span>韓國叫：<b lang="ko">' + esc(it.kr) + "</b>（" + esc(it.krRead) + "）</span></p></article>";
@@ -442,11 +448,11 @@
     if (cl) return h + clinicsView(parts[2] || "ok", parts[3] || "all");
 
     if (all) {
-      h += '<section class="card has-st">' + H("sparkle", "全部療程比較", "lilac") + '<div class="bscroll"><table class="btbl"><thead><tr><th>療程</th><th>台灣叫法</th><th>韓國叫法</th><th>台灣價</th><th>韓國價</th></tr></thead><tbody>' +
+      h += '<section class="card has-st">' + H("sparkle", "全部療程比較", "lilac") + '<div class="bscroll"><table class="btbl"><thead><tr><th>療程</th><th>台灣叫法</th><th>韓國叫法</th><th>台灣價</th><th>韓國價</th><th>發數／CC</th></tr></thead><tbody>' +
         [["lift", "輪廓拉提"], ["skin", "膚質改善"]].map(function (g) {
-          return '<tr class="grp"><th>' + g[1] + '</th><td colspan="4"></td></tr>' + b.items.filter(function (it) { return it.goal[0] === g[0]; }).map(function (it) {
+          return '<tr class="grp"><th>' + g[1] + '</th><td colspan="5"></td></tr>' + b.items.filter(function (it) { return it.goal[0] === g[0]; }).map(function (it) {
             return "<tr><th>" + esc(it.name) + (it.now && it.rec === "none" ? '<span class="tag d31">適合 12/31</span>' : "") + "</th><td>" + esc(it.tw) + '</td><td><span lang="ko">' + esc(it.kr) + "</span><small>" + esc(it.krRead) + "</small></td><td>" +
-              twPrice(it) + "<small>" + esc(it.dose) + "</small></td><td>" + krPrice(it) + "<small>" + krInTw(it) + "</small></td></tr>";
+              twPrice(it) + "<small>" + esc(it.dose) + "</small></td><td>" + krPrice(it) + "<small>" + krInTw(it) + "</small></td><td>" + (it.doses ? esc(it.doses.map(function (d) { return d[0]; }).join("／")) : "—") + "</td></tr>";
           }).join("");
         }).join("") + '</tbody></table></div><p class="hint">表格可以左右滑</p></section>';
     } else if (step < BQ.length) {

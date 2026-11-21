@@ -299,6 +299,12 @@ html.sheet-open, html.sheet-open body { overflow: hidden; }
 .bdl { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin: 10px 0; font-size: 14px; }
 .bdl dt { font-weight: 800; white-space: nowrap; }
 .bdl dd { margin: 0; }
+.bdose { margin: 10px 0; padding: 10px 12px; border: 2px solid var(--ink); border-radius: 12px; background: var(--paper); font-size: 14px; }
+.bdose > b { display: block; margin-bottom: 6px; }
+.bdose ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 5px; }
+.bdose li { display: grid; grid-template-columns: 6.5em 1fr; gap: 8px; align-items: baseline; }
+.bdose li span { font-weight: 800; white-space: nowrap; }
+.btip { margin: 8px 0 0; font-size: 13px; opacity: .85; }
 .bprice { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .bprice > div { border: 2px solid var(--ink); border-radius: 12px; padding: 6px 10px 8px; background: var(--sky); }
 .bprice > div + div { background: var(--lilac); }
